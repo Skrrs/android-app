@@ -154,6 +154,7 @@ class TestActivity : AppCompatActivity() {
                 prepare()
 //                setOutputFile(recordingFilePath) // 따로 저장하지 않고 cache 에 저장.
             }
+
         recorder?.start()
         soundVisualizerView.startVisualizing(false)
         recordTimeTextView.startCountUp()
@@ -176,12 +177,12 @@ class TestActivity : AppCompatActivity() {
             setDataSource(output)
             prepare()
 //            setDataSource(recordingFilePath) // cache에 저장된 녹음된 파일 읽어오기
-
         }
         player?.setOnCompletionListener {
             stopPlaying()
             state = State.AFTER_RECORDING
         }
+
         player?.start()
         soundVisualizerView.startVisualizing(true)
         recordTimeTextView.startCountUp()
