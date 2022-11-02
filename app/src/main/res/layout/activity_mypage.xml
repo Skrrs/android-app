@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background_color"
+    tools:context=".presentation.main.MainActivity"
+    tools:layout_editor_absoluteX="0dp"
+    tools:layout_editor_absoluteY="177dp">
+
+    <!--    Header -->
+    <LinearLayout
+        android:id="@+id/header"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:background="@color/white"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/header_logo"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:contentDescription="@string/TODO"
+            app:layout_constraintBottom_toBottomOf="@+id/main_header"
+            app:layout_constraintEnd_toEndOf="@+id/main_header"
+            app:layout_constraintStart_toStartOf="@+id/main_header"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.5"
+            app:srcCompat="@drawable/border_logo" />
+    </LinearLayout>
+
+    <!--    Body -->
+    <LinearLayout
+        android:id="@+id/mypage_profile"
+        android:layout_width="255dp"
+        android:layout_height="360dp"
+        android:background="@drawable/border_button"
+        android:backgroundTint="#FFFFFF"
+        app:layout_constraintBottom_toTopOf="@+id/footer"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/header"
+        app:layout_constraintVertical_bias="0.2"
+        android:orientation="vertical"
+        android:gravity="center|bottom">
+
+        <TextView
+            android:id="@+id/mypage_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/example_user_name"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/mypage_email"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:text="@string/example_user_email"
+            android:textColor="@color/black"
+            android:textSize="15sp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnMylibrary"
+        android:layout_width="255dp"
+        android:layout_height="50dp"
+        android:layout_centerInParent="true"
+        android:background="@drawable/border_button"
+        android:backgroundTint="#FFFFFF"
+        android:drawableStart="@drawable/ic_star"
+        android:paddingStart="17dp"
+        android:paddingEnd="35dp"
+        android:text="@string/btn_myLibrary"
+        android:textAllCaps="false"
+        android:textColor="@android:color/black"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/btnLogout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/mypage_profile" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnLogout"
+        android:layout_width="255dp"
+        android:layout_height="50dp"
+        android:layout_centerInParent="true"
+        android:background="@drawable/border_button"
+        android:backgroundTint="#FFFFFF"
+        android:drawableStart="@drawable/ic_logout"
+        android:paddingStart="25dp"
+        android:paddingEnd="35dp"
+        android:text="@string/btn_logout"
+        android:textAllCaps="false"
+        android:textColor="@android:color/black"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/footer"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/mypage_profile"
+        app:layout_constraintVertical_bias="0.729" />
+
+    <!--    Footer -->
+    <LinearLayout
+        android:id="@+id/footer"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:background="@color/white"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnHome"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:background="@drawable/ic_home" />
+    </LinearLayout>
+<!--    <TextView-->
+<!--        android:id="@+id/main_footer"-->
+<!--        android:layout_width="412dp"-->
+<!--        android:layout_height="70dp"-->
+<!--        android:background="@color/white"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintHorizontal_bias="0.0"-->
+<!--        app:layout_constraintStart_toStartOf="parent" />-->
+
+
+<!--    <androidx.appcompat.widget.AppCompatButton-->
+<!--        android:id="@+id/btnHome"-->
+<!--        android:layout_width="40dp"-->
+<!--        android:layout_height="40dp"-->
+<!--        android:layout_centerInParent="true"-->
+<!--        android:background="@drawable/ic_home"-->
+<!--        app:layout_constraintBottom_toBottomOf="@+id/main_footer"-->
+<!--        app:layout_constraintEnd_toEndOf="@+id/main_footer"-->
+<!--        app:layout_constraintStart_toStartOf="@+id/main_footer"-->
+<!--        app:layout_constraintTop_toTopOf="@+id/main_footer" />-->
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background_color"
+    tools:context=".presentation.main.MainActivity">
+
+    <!--    Header -->
+    <LinearLayout
+        android:id="@+id/header"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:background="@color/white"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toTopOf="parent"
+        android:gravity="center">
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/header_user"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="16dp"
+            android:background="@drawable/border_user"
+            android:layout_gravity="start|center_vertical" />
+
+        <ImageView
+            android:id="@+id/header_logo"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_gravity="center"
+            app:srcCompat="@drawable/border_logo"
+            android:layout_marginStart="120dp"
+            android:layout_marginEnd="120dp"
+            android:contentDescription="@string/TODO" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/header_dictionary"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_gravity="end|center_vertical"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/border_library" />
+
+    </LinearLayout>
+<!--    <TextView-->
+<!--        android:id="@+id/main_header"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="70dp"-->
+<!--        android:background="@color/white"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintHorizontal_bias="1.0"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent" />-->
+
+<!--    <androidx.appcompat.widget.AppCompatButton-->
+<!--        android:id="@+id/header_user"-->
+<!--        android:layout_width="40dp"-->
+<!--        android:layout_height="40dp"-->
+<!--        android:layout_marginStart="16dp"-->
+<!--        android:background="@drawable/border_user"-->
+<!--        app:layout_constraintBottom_toBottomOf="@+id/main_header"-->
+<!--        app:layout_constraintStart_toStartOf="@+id/main_header"-->
+<!--        app:layout_constraintTop_toTopOf="@+id/main_header"-->
+<!--        app:layout_constraintVertical_bias="0.5" />-->
+
+<!--    <ImageView-->
+<!--        android:id="@+id/header_logo"-->
+<!--        android:layout_width="45dp"-->
+<!--        android:layout_height="45dp"-->
+<!--        android:contentDescription="@string/TODO"-->
+<!--        app:layout_constraintBottom_toBottomOf="@+id/main_header"-->
+<!--        app:layout_constraintEnd_toStartOf="@+id/header_dictionary"-->
+<!--        app:layout_constraintStart_toEndOf="@+id/header_user"-->
+<!--        app:layout_constraintTop_toTopOf="parent"-->
+<!--        app:layout_constraintVertical_bias="0.5"-->
+<!--        app:srcCompat="@drawable/border_logo" />-->
+
+<!--    <androidx.appcompat.widget.AppCompatButton-->
+<!--        android:id="@+id/header_dictionary"-->
+<!--        android:layout_width="40dp"-->
+<!--        android:layout_height="40dp"-->
+<!--        android:layout_marginEnd="16dp"-->
+<!--        android:background="@drawable/border_library"-->
+<!--        app:layout_constraintBottom_toBottomOf="@+id/main_header"-->
+<!--        app:layout_constraintEnd_toEndOf="@+id/main_header"-->
+<!--        app:layout_constraintTop_toTopOf="@+id/main_header"-->
+<!--        app:layout_constraintVertical_bias="0.5" />-->
+
+    <!--    Body -->
+
+    <!--    Beginner -->
+
+    <TextView
+        android:id="@+id/level_box"
+        android:layout_width="370dp"
+        android:layout_height="200dp"
+        android:layout_marginTop="36dp"
+        android:background="#FFC107"
+        android:foregroundGravity="center"
+        app:layout_constraintBottom_toTopOf="@+id/Calender"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/header"
+        tools:ignore="MissingConstraints" />
+
+    <TextView
+        android:id="@+id/level_beginner"
+        android:layout_width="100dp"
+        android:layout_height="160dp"
+        android:background="#ADE76B"
+        android:paddingTop="15dp"
+        android:text="Beginner"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/level_box"
+        app:layout_constraintEnd_toStartOf="@+id/level_intermediate"
+        app:layout_constraintStart_toStartOf="@+id/level_box"
+        app:layout_constraintTop_toTopOf="@+id/level_box" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/beginner_go"
+        android:layout_width="60dp"
+        android:layout_height="20dp"
+        android:background="@drawable/btn_go_shape"
+        android:text="@string/btn_go"
+        android:textColor="@color/white"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@+id/level_beginner"
+        app:layout_constraintEnd_toEndOf="@+id/level_beginner"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="@+id/level_beginner"
+        app:layout_constraintTop_toTopOf="@+id/level_beginner"
+        app:layout_constraintVertical_bias="0.95" />
+    <!--    Intermediate -->
+    <TextView
+        android:id="@+id/level_intermediate"
+        android:layout_width="100dp"
+        android:layout_height="160dp"
+        android:background="#03A9F4"
+        android:paddingTop="15dp"
+        android:text="Intermediate"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/level_box"
+        app:layout_constraintEnd_toEndOf="@+id/level_box"
+        app:layout_constraintStart_toStartOf="@+id/level_box"
+        app:layout_constraintTop_toTopOf="@+id/level_box" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/intermediate_go"
+        android:layout_width="60dp"
+        android:layout_height="20dp"
+        android:background="@drawable/btn_go_shape"
+        android:text="@string/btn_go"
+        android:textColor="@color/white"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@+id/level_intermediate"
+        app:layout_constraintEnd_toEndOf="@+id/level_intermediate"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="@+id/level_intermediate"
+        app:layout_constraintTop_toTopOf="@+id/level_intermediate"
+        app:layout_constraintVertical_bias="0.95" />
+    <!--    Advanced -->
+    <TextView
+        android:id="@+id/level_advanced"
+        android:layout_width="100dp"
+        android:layout_height="160dp"
+        android:background="#F73476"
+        android:paddingTop="15dp"
+        android:text="Advanced"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/level_box"
+        app:layout_constraintEnd_toEndOf="@+id/level_box"
+        app:layout_constraintStart_toEndOf="@+id/level_intermediate"
+        app:layout_constraintTop_toTopOf="@+id/level_box" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/advanced_go"
+        android:layout_width="60dp"
+        android:layout_height="20dp"
+        android:background="@drawable/btn_go_shape"
+        android:text="@string/btn_go"
+        android:textColor="@color/white"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@+id/level_advanced"
+        app:layout_constraintEnd_toEndOf="@+id/level_advanced"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="@+id/level_advanced"
+        app:layout_constraintTop_toTopOf="@+id/level_advanced"
+        app:layout_constraintVertical_bias="0.95" />
+
+    <TextView
+        android:id="@+id/Calender"
+        android:layout_width="370dp"
+        android:layout_height="300dp"
+        android:background="@color/purple_200"
+        android:gravity="center_horizontal|center_vertical"
+        app:layout_constraintBottom_toTopOf="@+id/main_footer"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/level_box" />
+
+    <!--    Footer -->
+    <TextView
+        android:id="@+id/main_footer"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:background="@color/white"
+        android:paddingTop="15dp"
+        android:text="@string/app_slogan"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

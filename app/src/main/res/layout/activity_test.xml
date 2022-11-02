@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background_color"
+    tools:context=".presentation.main.MainActivity">
+
+    <!--    Header -->
+    <LinearLayout
+        android:id="@+id/header"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:background="@color/white"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/header_logo"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:contentDescription="@string/TODO"
+            app:layout_constraintBottom_toBottomOf="@+id/main_header"
+            app:layout_constraintEnd_toEndOf="@+id/main_header"
+            app:layout_constraintStart_toStartOf="@+id/main_header"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.5"
+            app:srcCompat="@drawable/border_logo" />
+
+    </LinearLayout>
+
+    <!--    Body -->
+
+    <!--    Footer -->
+
+    <LinearLayout
+        android:id="@+id/testBox"
+        android:layout_width="365dp"
+        android:layout_height="280dp"
+        android:background="@drawable/border_button"
+        android:backgroundTint="#FFFFFF"
+        android:orientation="vertical"
+        android:visibility="visible"
+        app:layout_constraintBottom_toTopOf="@+id/result"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/header"
+        app:layout_constraintVertical_bias="0.492">
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnStar"
+            android:layout_width="52dp"
+            android:layout_height="48dp"
+            android:layout_gravity="end"
+            android:layout_margin="20dp"
+            android:background="@drawable/ic_emptystar"
+
+            tools:ignore="SpeakableTextPresentCheck" />
+
+        <TextView
+            android:id="@+id/sentence1"
+            android:layout_width="match_parent"
+            android:layout_height="90dp"
+            android:gravity="center"
+            android:padding="10dp"
+            android:text="@string/example_myLibrary"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnReplay"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/ic_replay"
+            tools:ignore="SpeakableTextPresentCheck" />
+
+        <TextView
+            android:id="@+id/pages"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="@string/test_page"
+            android:textColor="#787878"
+            android:textSize="15sp" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/result"
+        android:layout_width="255dp"
+        android:layout_height="50dp"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/border_button"
+        android:backgroundTint="@color/teal_200"
+        android:gravity="center"
+        android:text="@string/msg_correct"
+        android:textColor="#003938"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/footer"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/footer"
+        android:layout_width="match_parent"
+        android:layout_height="240dp"
+        android:background="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <com.example.aop.part2.mask.utils.record.SoundVisualizerView
+            android:id="@+id/soundVisualizeView"
+            android:layout_width="312dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.495"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/footer" />
+
+        <Button
+            android:id="@+id/resetButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="RESET"
+            app:layout_constraintBottom_toBottomOf="@+id/recordButton"
+            app:layout_constraintEnd_toStartOf="@+id/recordButton"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txt_recordTime"
+            tools:ignore="HardcodedText" />
+
+        <com.example.aop.part2.mask.utils.record.CountUpView
+            android:id="@+id/txt_recordTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:text="00:00"
+            app:layout_constraintBottom_toTopOf="@+id/recordButton"
+            app:layout_constraintEnd_toEndOf="@+id/recordButton"
+            app:layout_constraintStart_toStartOf="@+id/recordButton"
+            tools:ignore="HardcodedText" />
+
+        <com.example.aop.part2.mask.utils.record.RecordButton
+            android:id="@+id/recordButton"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_marginBottom="32dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            tools:ignore="SpeakableTextPresentCheck" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
