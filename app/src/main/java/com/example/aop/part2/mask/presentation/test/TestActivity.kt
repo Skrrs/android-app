@@ -23,9 +23,6 @@ import com.example.aop.part2.mask.utils.record.CountUpView
 import java.util.*
 
 class TestActivity : AppCompatActivity() {
-    val fileName = Date().time.toString() + ".mp3"
-    var output : String = ""
-
     private val soundVisualizerView: SoundVisualizerView by lazy {
         findViewById(R.id.soundVisualizeView)
     }
@@ -45,6 +42,9 @@ class TestActivity : AppCompatActivity() {
     )
     private val recordingFilePath: String by lazy {
         "${externalCacheDir?.absolutePath}/recording.3gp"
+    }
+    private val recordingFilePath2: String by lazy{
+        "${Environment.getExternalStorageDirectory().absolutePath}/Download/${Date().time.toString()}recording.wav"
     }
     private var recorder: MediaRecorder? = null
     private var audioRecorder: AudioRecord? = null
@@ -143,16 +143,14 @@ class TestActivity : AppCompatActivity() {
     }
 
     private fun startRecording() {
-        output = Environment.getExternalStorageDirectory().absolutePath + "/Download/" + fileName
-
         recorder = MediaRecorder()
             .apply {
                 setAudioSource(MediaRecorder.AudioSource.MIC)
                 setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP)
                 setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB)
-                setOutputFile(output)
-                prepare()
 //                setOutputFile(recordingFilePath) // 따로 저장하지 않고 cache 에 저장.
+                setOutputFile(recordingFilePath2)
+                prepare()
             }
 
         recorder?.start()
@@ -174,9 +172,9 @@ class TestActivity : AppCompatActivity() {
 
     private fun startPlaying() {
         player = MediaPlayer().apply {
-            setDataSource(output)
-            prepare()
 //            setDataSource(recordingFilePath) // cache에 저장된 녹음된 파일 읽어오기
+            setDataSource(recordingFilePath2)
+            prepare()
         }
         player?.setOnCompletionListener {
             stopPlaying()
