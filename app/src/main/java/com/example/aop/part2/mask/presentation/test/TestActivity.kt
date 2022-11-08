@@ -151,6 +151,7 @@ class TestActivity : AppCompatActivity() {
                 setOutputFile(recordingFilePath2)
                 prepare()
             }
+
         recorder?.start()
         soundVisualizerView.startVisualizing(false)
         recordTimeTextView.startCountUp()
@@ -178,6 +179,7 @@ class TestActivity : AppCompatActivity() {
             stopPlaying()
             state = State.AFTER_RECORDING
         }
+
         player?.start()
         soundVisualizerView.startVisualizing(true)
         recordTimeTextView.startCountUp()
