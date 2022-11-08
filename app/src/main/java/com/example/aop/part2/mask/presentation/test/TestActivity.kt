@@ -3,7 +3,6 @@ package com.example.aop.part2.mask.presentation.test
 import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.media.AudioRecord
 import android.media.MediaPlayer
 import android.media.MediaRecorder
 import android.net.Uri
@@ -18,7 +17,6 @@ import com.example.aop.part2.mask.R
 import com.example.aop.part2.mask.utils.record.RecordButton
 import com.example.aop.part2.mask.utils.record.SoundVisualizerView
 import com.example.aop.part2.mask.utils.record.State
-import com.example.aop.part2.mask.presentation.mypage.MypageActivity
 import com.example.aop.part2.mask.utils.record.CountUpView
 import java.util.*
 
