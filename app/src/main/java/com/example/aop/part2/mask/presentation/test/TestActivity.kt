@@ -47,7 +47,6 @@ class TestActivity : AppCompatActivity() {
         "${Environment.getExternalStorageDirectory().absolutePath}/Download/${Date().time.toString()}recording.wav"
     }
     private var recorder: MediaRecorder? = null
-    private var audioRecorder: AudioRecord? = null
     private var player: MediaPlayer? = null
     private var state = State.BEFORE_RECORDING
         set(value) {
