@@ -11,9 +11,10 @@ class SoundVisualizerView(
     context: Context,
     attrs: AttributeSet? = null
 ) : View(context, attrs) {
+
     var onRequestCurrentAmplitude: (() -> Int)? = null
 
-    private val amplitutePaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
+    private val amplitudePaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
         color = context.getColor(R.color.purple_500)
         strokeWidth = LINE_WIDTH
         strokeCap = Paint.Cap.ROUND
@@ -22,17 +23,15 @@ class SoundVisualizerView(
     private var drawingHeight: Int = 0
     private var drawingAmplitudes: List<Int> = emptyList()
     private var isReplaying: Boolean = false
-    private var replayingPoision: Int = 0
+    private var replayingPosition: Int = 0
 
     private val visualizeRepeatAction: Runnable = object : Runnable {
         override fun run() {
-            //Amplitude, Draw
-            if(!isReplaying){
+            if (!isReplaying) {
                 val currentAmplitude = onRequestCurrentAmplitude?.invoke() ?: 0
                 drawingAmplitudes = listOf(currentAmplitude) + drawingAmplitudes
-            }
-            else{
-                replayingPoision++
+            } else {
+                replayingPosition++
             }
             invalidate()
 
@@ -55,25 +54,25 @@ class SoundVisualizerView(
         var offsetX = drawingWidth.toFloat()
 
         drawingAmplitudes
-            .let{   amplitudes ->
-                if(isReplaying) {
-                    amplitudes.takeLast(replayingPoision)
-                }else{
+            .let { amplitudes ->
+                if (isReplaying) {
+                    amplitudes.takeLast(replayingPosition)
+                } else {
                     amplitudes
                 }
             }
-            .forEach { amplitute ->
-                val lineLength = amplitute / MAX_AMPLITUDE * drawingHeight * 0.8F
+            .forEach { amplitude ->
+                val lineLength = amplitude / MAX_AMPLITUDE * drawingHeight * 0.8F
 
                 offsetX -= LINE_SPACE
-                if(offsetX < 0) return@forEach
+                if (offsetX < 0) return@forEach
 
                 canvas.drawLine(
                     offsetX,
                     centerY - lineLength / 2F,
                     offsetX,
                     centerY + lineLength / 2F,
-                    amplitutePaint
+                    amplitudePaint
                 )
             }
     }
@@ -81,10 +80,10 @@ class SoundVisualizerView(
     fun startVisualizing(isReplaying: Boolean) {
         this.isReplaying = isReplaying
         handler?.post(visualizeRepeatAction)
-
     }
 
-    fun stopVisualizing(){
+    fun stopVisualizing() {
+        replayingPosition = 0
         handler?.removeCallbacks(visualizeRepeatAction)
     }
 
@@ -96,7 +95,7 @@ class SoundVisualizerView(
     companion object {
         private const val LINE_WIDTH = 10F
         private const val LINE_SPACE = 15F
-        private const val MAX_AMPLITUDE = Short.MAX_VALUE
+        private const val MAX_AMPLITUDE = Short.MAX_VALUE.toFloat()
         private const val ACTION_INTERVAL = 20L
     }
 }
