@@ -116,8 +116,8 @@
 
         <com.example.aop.part2.mask.utils.record.SoundVisualizerView
             android:id="@+id/soundVisualizeView"
-            android:layout_width="312dp"
-            android:layout_height="50dp"
+            android:layout_width="314dp"
+            android:layout_height="72dp"
             android:layout_marginTop="20dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.495"
@@ -125,14 +125,16 @@
             app:layout_constraintTop_toTopOf="@+id/footer" />
 
         <Button
-            android:id="@+id/resetButton"
+            android:id="@+id/confirmButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="RESET"
+            android:text="Confirm"
             app:layout_constraintBottom_toBottomOf="@+id/recordButton"
             app:layout_constraintEnd_toStartOf="@+id/recordButton"
+            app:layout_constraintHorizontal_bias="0.484"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/txt_recordTime"
+            app:layout_constraintVertical_bias="0.428"
             tools:ignore="HardcodedText" />
 
         <com.example.aop.part2.mask.utils.record.CountUpView
