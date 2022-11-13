@@ -3,7 +3,6 @@ package com.example.aop.part2.mask.presentation.test
 import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.media.AudioRecord
 import android.media.MediaPlayer
 import android.media.MediaRecorder
 import android.net.Uri
@@ -60,7 +59,6 @@ class TestActivity : AppCompatActivity() {
     private var recordFile : File? = null
     private var rtf : Retrofit? = null
     private var recorder: MediaRecorder? = null
-    private var audioRecorder: AudioRecord? = null
     private var player: MediaPlayer? = null
     private var state = State.BEFORE_RECORDING
         set(value) {
