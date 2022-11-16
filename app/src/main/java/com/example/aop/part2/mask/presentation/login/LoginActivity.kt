@@ -23,7 +23,7 @@ import java.util.*
 //import com.facebook.login.LoginResult
 //import com.facebook.login.widget.LoginButton
 //import com.google.firebase.auth.FacebookAuthProvider
-//import com.google.firebase.database.ktx.database
+import com.google.firebase.database.ktx.database
 //import com.google.android.gms.auth.api.signin.GoogleSignInClient
 
 class LoginActivity : AppCompatActivity() {
@@ -74,8 +74,8 @@ class LoginActivity : AppCompatActivity() {
             auth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this) { task ->
                     if (task.isSuccessful) {
-                        finish()
-//                        successLogin()
+//                        finish()
+                        successLogin()
                     } else {
                         Toast.makeText(
                             this,
@@ -130,19 +130,20 @@ class LoginActivity : AppCompatActivity() {
             signUpButton.isEnabled = enable
         }
     }
-    //    private fun successLogin() {
-//        if (auth.currentUser == null) {
-//            Toast.makeText(this, "로그인에 실패했습니다. 다시 시도해주세요.", Toast.LENGTH_SHORT).show()
-//            return
-//        }
-//        val userId: String = auth.currentUser.uid
-//        val currentUserDb = Firebase.database.reference.child("Users").child(userId)
-//        val user = mutableMapOf<String, Any>()
-//        user["userId"] = userId
-//        currentUserDb.updateChildren(user)
-//
-//        finish()
-//    }
+
+    private fun successLogin() {
+        if (auth.currentUser == null) {
+            Toast.makeText(this, "로그인에 실패했습니다. 다시 시도해주세요.", Toast.LENGTH_SHORT).show()
+            return
+        }
+        val userId: String = auth.currentUser?.uid.orEmpty()
+        val currentUserDb = Firebase.database.reference.child("Users").child(userId)
+        val user = mutableMapOf<String, Any>()
+        user["userId"] = userId
+        currentUserDb.updateChildren(user)
+
+        finish()
+    }
 
 
 //    ######## About Facebook #########
@@ -164,5 +165,4 @@ class LoginActivity : AppCompatActivity() {
 //                }
 //            }
 //    }
-//
 }

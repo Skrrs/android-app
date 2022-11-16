@@ -53,14 +53,15 @@ dependencies {
 
     // Firebase
     implementation 'com.google.firebase:firebase-auth-ktx'
+    implementation 'com.google.firebase:firebase-database-ktx'
+//    implementation 'com.google.firebase:firebase-analytics-ktx'
     implementation 'com.google.android.gms:play-services-auth:20.2.0'
     implementation 'com.google.firebase:firebase-core:17.2.3'
     implementation 'com.google.firebase:firebase-messaging-ktx:23.0.5'
     implementation platform('com.google.firebase:firebase-bom:31.0.3')
-//    implementation 'com.google.firebase:firebase-analytics-ktx'
 
     // Facebook
-    implementation 'com.facebook.android:facebook-login:latest.release'
+//    implementation 'com.facebook.android:facebook-login'
 
     // Image
     implementation 'com.squareup.picasso:picasso:2.71828'
