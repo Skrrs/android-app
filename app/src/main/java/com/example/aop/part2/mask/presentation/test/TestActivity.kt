@@ -18,6 +18,8 @@ import com.example.aop.part2.mask.R
 import com.example.aop.part2.mask.domain.controller.ProblemController
 import com.example.aop.part2.mask.domain.request.RecordDto
 import com.example.aop.part2.mask.domain.response.Problem
+import com.example.aop.part2.mask.presentation.library.MylibraryActivity
+import com.example.aop.part2.mask.presentation.main.MainActivity
 import com.example.aop.part2.mask.utils.api.RetrofitClass
 import com.example.aop.part2.mask.utils.record.RecordButton
 import com.example.aop.part2.mask.utils.record.SoundVisualizerView
@@ -77,6 +79,13 @@ class TestActivity : AppCompatActivity() {
         initViews()
         bindViews()
         initVariavbles()
+
+        val Logo = findViewById<AppCompatButton>(R.id.header_logo)
+        Logo.setOnClickListener {
+            val intent = Intent(this, MainActivity::class.java) //
+            startActivity(intent)
+            finish()
+        }
 
         val btnStar = findViewById<AppCompatButton>(R.id.btnStar)
         val btnReplay = findViewById<AppCompatButton>(R.id.btnReplay)
@@ -153,9 +162,10 @@ class TestActivity : AppCompatActivity() {
                 if (response.isSuccessful) {
                     Log.d("GradeProblem Success", response.code().toString())
                     when(response.body()?.result){
-//                        1 -> great 메시지 출력하기
+//                        1 -> bad 메시지 출력하기
 //                        2 -> good 메시지 출력하기
-//                        3 -> bad 메시지 출력하기
+//                        3 -> great 메시지 출력하기
+//                        4 -> perfect 메시지 출력하기
                     }
                 } else{
                     Log.d("GradeProblem : Code 400 Error", response.toString())
