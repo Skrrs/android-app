@@ -17,17 +17,18 @@
         android:orientation="horizontal"
         app:layout_constraintTop_toTopOf="parent">
 
-        <ImageView
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/header_logo"
-            android:layout_width="50dp"
+            android:layout_width="45dp"
             android:layout_height="50dp"
             android:contentDescription="@string/TODO"
             app:layout_constraintBottom_toBottomOf="@+id/main_header"
-            app:layout_constraintEnd_toEndOf="@+id/main_header"
             app:layout_constraintStart_toStartOf="@+id/main_header"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.5"
-            app:srcCompat="@drawable/border_logo" />
+            app:srcCompat="@drawable/border_logo"
+            android:background="@drawable/border_logo"
+        />
 
     </LinearLayout>
 
