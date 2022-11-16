@@ -9,15 +9,27 @@ import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
 import android.provider.Settings
+import android.util.Log
 import android.widget.Button
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatButton
 import com.example.aop.part2.mask.R
+import com.example.aop.part2.mask.domain.controller.ProblemController
+import com.example.aop.part2.mask.domain.request.RecordDto
+import com.example.aop.part2.mask.domain.response.Problem
+import com.example.aop.part2.mask.utils.api.RetrofitClass
 import com.example.aop.part2.mask.utils.record.RecordButton
 import com.example.aop.part2.mask.utils.record.SoundVisualizerView
 import com.example.aop.part2.mask.utils.record.State
 import com.example.aop.part2.mask.utils.record.CountUpView
+import okhttp3.MediaType
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
+import retrofit2.Call
+import retrofit2.Response
+import retrofit2.Retrofit
+import java.io.File
 import java.util.*
 
 class TestActivity : AppCompatActivity() {
@@ -27,8 +39,8 @@ class TestActivity : AppCompatActivity() {
     private val recordTimeTextView: CountUpView by lazy {
         findViewById(R.id.txt_recordTime)
     }
-    private val resetButton: Button by lazy {
-        findViewById(R.id.resetButton)
+    private val confirmButton: Button by lazy {
+        findViewById(R.id.confirmButton)
     }
     private val recordButton: RecordButton by lazy {
         findViewById(R.id.recordButton)
@@ -44,12 +56,14 @@ class TestActivity : AppCompatActivity() {
     private val recordingFilePath2: String by lazy{
         "${Environment.getExternalStorageDirectory().absolutePath}/Download/${Date().time.toString()}recording.wav"
     }
+    private var recordFile : File? = null
+    private var rtf : Retrofit? = null
     private var recorder: MediaRecorder? = null
     private var player: MediaPlayer? = null
     private var state = State.BEFORE_RECORDING
         set(value) {
             field = value
-            resetButton.isEnabled =
+            confirmButton.isEnabled =
                 (value == State.AFTER_RECORDING) || (value == State.ON_PLAYING)
             recordButton.updateIconWithState(value)
         }
@@ -58,6 +72,7 @@ class TestActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_test)
 
+        rtf = RetrofitClass().getRetrofitInstance()
         requestAudioPermission()
         initViews()
         bindViews()
@@ -66,16 +81,6 @@ class TestActivity : AppCompatActivity() {
         val btnStar = findViewById<AppCompatButton>(R.id.btnStar)
         val btnReplay = findViewById<AppCompatButton>(R.id.btnReplay)
 
-//        btnStar.setOnClickListener {
-//            val intent = Intent(this, MypageActivity::class.java) //
-//            startActivity(intent)
-//            //finish()
-//        }
-//        btnReplay.setOnClickListener {
-//            val intent = Intent(this, NextActivity::class.java) // BeginnerGo
-//            startActivity(intent)
-//            finish()
-//        }
     }
 
     override fun onRequestPermissionsResult(
@@ -110,12 +115,16 @@ class TestActivity : AppCompatActivity() {
         soundVisualizerView.onRequestCurrentAmplitude = {
             recorder?.maxAmplitude ?: 0
         }
-
-        resetButton.setOnClickListener {
+        confirmButton.setOnClickListener {
             stopPlaying()
             soundVisualizerView.clearVisualization()
             recordTimeTextView.clearCountTime()
             state = State.BEFORE_RECORDING
+            if(recordFile != null){
+                val requestFile = RequestBody.create(MediaType.parse("audio/wav"),recordFile)
+                val body = MultipartBody.Part.createFormData("file", recordFile!!.name,requestFile)
+                callGradeProblem(body)
+            }
         }
         recordButton.setOnClickListener {
             when (state) {
@@ -135,6 +144,28 @@ class TestActivity : AppCompatActivity() {
         }
     }
 
+    private fun callGradeProblem(body: MultipartBody.Part){
+        val api = rtf?.create(ProblemController::class.java)
+//        val dto = RecordDto(body)
+        var callAPI = api?.gradeProblem(body)
+        callAPI?.enqueue(object : retrofit2.Callback<Problem> {
+            override fun onResponse(call: Call<Problem>, response: Response<Problem>) {
+                if (response.isSuccessful) {
+                    Log.d("GradeProblem Success", response.code().toString())
+                    when(response.body()?.result){
+//                        1 -> great 메시지 출력하기
+//                        2 -> good 메시지 출력하기
+//                        3 -> bad 메시지 출력하기
+                    }
+                } else{
+                    Log.d("GradeProblem : Code 400 Error", response.toString())
+                }
+            }
+            override fun onFailure(call: Call<Problem>, t: Throwable) {
+                Log.d("GradeProblem : Code 500 Error", t.toString())
+            }
+        })
+    }
     private fun initVariavbles() {
         state = State.BEFORE_RECORDING
     }
@@ -149,7 +180,7 @@ class TestActivity : AppCompatActivity() {
                 setOutputFile(recordingFilePath2)
                 prepare()
             }
-
+        recordFile = File(recordingFilePath2)
         recorder?.start()
         soundVisualizerView.startVisualizing(false)
         recordTimeTextView.startCountUp()
