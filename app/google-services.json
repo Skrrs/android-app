@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "896739083459",
+    "firebase_url": "https://mask2-2471c-default-rtdb.firebaseio.com",
+    "project_id": "mask2-2471c",
+    "storage_bucket": "mask2-2471c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:896739083459:android:431205f5dd91cd8dd08e76",
+        "android_client_info": {
+          "package_name": "com.example.aop.part2.mask"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "896739083459-ds3hfcb12rdcv5uiin8nqos690suti0a.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA7y80X-ZxuyRk5-V9RRnGAVKtstF3u3Wk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "896739083459-ds3hfcb12rdcv5uiin8nqos690suti0a.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

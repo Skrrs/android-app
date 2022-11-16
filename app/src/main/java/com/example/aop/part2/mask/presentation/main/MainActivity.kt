@@ -6,9 +6,14 @@ import android.os.Bundle
 import androidx.appcompat.widget.AppCompatButton
 import com.example.aop.part2.mask.presentation.mypage.MypageActivity
 import com.example.aop.part2.mask.R
+import com.example.aop.part2.mask.presentation.library.MylibraryActivity
+import com.example.aop.part2.mask.presentation.login.LoginActivity
 import com.example.aop.part2.mask.presentation.test.TestActivity
+import com.google.firebase.auth.FirebaseAuth
 
 class MainActivity : AppCompatActivity() {
+    private val auth: FirebaseAuth = FirebaseAuth.getInstance()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -24,7 +29,7 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
         dictionary.setOnClickListener{
-            val intent = Intent(this, MypageActivity::class.java) //
+            val intent = Intent(this, MylibraryActivity::class.java) //
             startActivity(intent)
         }
 
@@ -42,6 +47,14 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this, TestActivity::class.java) // AdvancedGo
             startActivity(intent)
             finish()
+        }
+    }
+
+    override fun onStart() {
+        super.onStart()
+
+        if (auth.currentUser == null) {
+            startActivity(Intent(this, LoginActivity::class.java))
         }
     }
 }
