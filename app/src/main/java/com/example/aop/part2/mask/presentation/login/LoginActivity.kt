@@ -2,6 +2,7 @@ package com.example.aop.part2.mask.presentation.login
 
 import android.os.Bundle
 import android.widget.Button
+//import androidx.appcompat.widget.AppCompatButton
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -10,11 +11,10 @@ import com.example.aop.part2.mask.R
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
-
-import androidx.appcompat.widget.AppCompatButton
+import com.google.firebase.database.ktx.database
 import android.content.Intent
-import android.util.Log
-import java.util.*
+import com.example.aop.part2.mask.presentation.main.MainActivity
+import com.example.aop.part2.mask.presentation.signup.SignupActivity
 
 //import com.facebook.AccessToken
 //import com.facebook.CallbackManager
@@ -23,7 +23,6 @@ import java.util.*
 //import com.facebook.login.LoginResult
 //import com.facebook.login.widget.LoginButton
 //import com.google.firebase.auth.FacebookAuthProvider
-import com.google.firebase.database.ktx.database
 //import com.google.android.gms.auth.api.signin.GoogleSignInClient
 
 class LoginActivity : AppCompatActivity() {
@@ -33,37 +32,18 @@ class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
-
         auth = Firebase.auth
+
         initLoginButton()
-        initSignUpButton()
+
+        val signUpButton = findViewById<Button>(R.id.signUpButton)
+        signUpButton.setOnClickListener {
+            val intent = Intent(this, SignupActivity::class.java) //
+            startActivity(intent)
+            finish()
+        }
+
         initEmailAndPasswordEditText()
-
-//        val facebookLoginButton = findViewById<LoginButton>(R.id.facebookLoginButton)
-//        callbackManager = CallbackManager.Factory.create()
-//        facebookLoginButton.setPermissions("email", "public_profile")
-//        facebookLoginButton.registerCallback(
-//            callbackManager,
-//            object : FacebookCallback<LoginResult> {
-//                override fun onSuccess(loginResult: LoginResult) {
-//                    Log.d("Facebook", "facebook:onSuccess:$loginResult")
-//                    handleFacebookAccessToken(loginResult.accessToken)
-//                }
-//
-//                override fun onCancel() {
-//                    Log.d("Facebook", "facebook:onCancel")
-//                }
-//
-//                override fun onError(error: FacebookException) {
-//                    Log.d("Facebook", "facebook:onError", error)
-//                    Toast.makeText(
-//                        this@LoginActivity,
-//                        "페이스북 로그인에 실패했습니다. 다시 시도해주세요.",
-//                        Toast.LENGTH_SHORT
-//                    ).show()
-//                }
-//            })
-
     }
 
     private fun initLoginButton(){
@@ -71,6 +51,13 @@ class LoginActivity : AppCompatActivity() {
         loginButton.setOnClickListener {
             val email = getInputEmail()
             val password = getInputPassword()
+
+            Toast.makeText(
+                this,
+                "로그인 중입니다... 잠시만 기다려 주세요 :)",
+                Toast.LENGTH_SHORT
+            ).show()
+
             auth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this) { task ->
                     if (task.isSuccessful) {
@@ -79,34 +66,23 @@ class LoginActivity : AppCompatActivity() {
                     } else {
                         Toast.makeText(
                             this,
-                            "로그인에 실패했습니다. 이메일 또는 비밀번호를 확인해주세요.",
+                            "로그인에 실패했습니다. 이메일 또는 비밀번호를 확인해주세요 :(",
                             Toast.LENGTH_SHORT
                         ).show()
                     }
                 }
         }
     }
-    private fun initSignUpButton(){
-        val signUpButton = findViewById<Button>(R.id.signUpButton)
-        signUpButton.setOnClickListener {
-            val email = getInputEmail()
-            val password = getInputPassword()
 
-            auth.createUserWithEmailAndPassword(email, password)
-                .addOnCompleteListener(this) { task ->
-                    if (task.isSuccessful) {
-                        Toast.makeText(
-                            this,
-                            "회원가입을 성공했습니다. 로그인 버튼을 눌러 로그인해주세요.",
-                            Toast.LENGTH_SHORT
-                        ).show()
-                    } else {
-                        Toast.makeText(this, "이미 가입한 이메일이거나, 회원가입에 실패했습니다.", Toast.LENGTH_SHORT)
-                            .show()
-                    }
-                }
-        }
-    }
+//    private fun initSignUpButton(){
+//        val signUpButton = findViewById<Button>(R.id.signUpButton)
+//        signUpButton.setOnClickListener {
+//            val intent = Intent(this, SignupActivity::class.java)
+//            startActivity(intent)
+////            finish()
+//        }
+//    }
+
     private fun getInputEmail(): String {
         return findViewById<EditText>(R.id.emailEditText).text.toString()
     }
@@ -119,15 +95,16 @@ class LoginActivity : AppCompatActivity() {
         val loginButton = findViewById<Button>(R.id.loginButton)
         val signUpButton = findViewById<Button>(R.id.signUpButton)
 
+        signUpButton.isEnabled = true
         emailEditText.addTextChangedListener {
-            val enable = emailEditText.text.isNotEmpty() && passwordEditText.text.isNotEmpty()
+            val enable = emailEditText.length() > 5 && passwordEditText.length() > 5
             loginButton.isEnabled = enable
-            signUpButton.isEnabled = enable
+            signUpButton.isEnabled = true
         }
         passwordEditText.addTextChangedListener {
-            val enable = emailEditText.text.isNotEmpty() && passwordEditText.text.isNotEmpty()
+            val enable = emailEditText.length() > 5 && passwordEditText.length() > 5
             loginButton.isEnabled = enable
-            signUpButton.isEnabled = enable
+            signUpButton.isEnabled = true
         }
     }
 
@@ -136,10 +113,10 @@ class LoginActivity : AppCompatActivity() {
             Toast.makeText(this, "로그인에 실패했습니다. 다시 시도해주세요.", Toast.LENGTH_SHORT).show()
             return
         }
-        val userId: String = auth.currentUser?.uid.orEmpty()
-        val currentUserDb = Firebase.database.reference.child("Users").child(userId)
+        val email: String = auth.currentUser?.uid.orEmpty()
+        val currentUserDb = Firebase.database.reference.child("Users").child(email)
         val user = mutableMapOf<String, Any>()
-        user["userId"] = userId
+        user["email"] = email
         currentUserDb.updateChildren(user)
 
         finish()

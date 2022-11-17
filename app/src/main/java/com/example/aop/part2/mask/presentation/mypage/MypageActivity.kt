@@ -1,7 +1,10 @@
 package com.example.aop.part2.mask.presentation.mypage
 
+import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatButton
 import com.example.aop.part2.mask.R
@@ -23,7 +26,14 @@ class MypageActivity: AppCompatActivity() {
 
         val Logout = findViewById<AppCompatButton>(R.id.btnLogout)
         Logout.setOnClickListener {
+            Toast.makeText(
+                this,
+                "로그아웃 합니다. 사용시 재로그인이 필요합니다.",
+                Toast.LENGTH_LONG
+            ).show()
+
             val intent = Intent(this, LoginActivity::class.java) // BeginnerGo
+//            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
             startActivity(intent)
             finish()
         }

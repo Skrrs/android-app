@@ -32,8 +32,8 @@ class MainActivity : AppCompatActivity() {
 
         currentUserDB.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
-                if (snapshot.child("name").value == null) {
-                    showNameInputPopup()
+                if (snapshot.child("email").value == null) {
+//                    showNameInputPopup()
                     return
                 }
 //                getUnSelectedUsers()
@@ -81,29 +81,29 @@ class MainActivity : AppCompatActivity() {
         return auth.currentUser?.uid.orEmpty()
     }
 
-    private fun showNameInputPopup() {
-        val editText = EditText(this)
-        AlertDialog.Builder(this)
-            .setTitle("이름을 입력해주세요")
-//            .setTitle(getString(com.google.firebase.database.R.string.write_name))
-            .setView(editText)
-            .setPositiveButton("저장") { _, _ ->
-                if (editText.text.isEmpty()) {
-                    showNameInputPopup()
-                } else {
-                    saveUserName(editText.text.toString())
-                }
-            }
-            .setCancelable(false)
-            .show()
-    }
+//    private fun showNameInputPopup() {
+//        val editText = EditText(this)
+//        AlertDialog.Builder(this)
+//            .setTitle("이름을 입력해주세요")
+////            .setTitle(getString(com.google.firebase.database.R.string.write_name))
+//            .setView(editText)
+//            .setPositiveButton("저장") { _, _ ->
+//                if (editText.text.isEmpty()) {
+//                    showNameInputPopup()
+//                } else {
+//                    saveUserName(editText.text.toString())
+//                }
+//            }
+//            .setCancelable(false)
+//            .show()
+//    }
 
     private fun saveUserName(name: String) {
-        val userId = getCurrentUserID()
-        val currentUserDB = userDB.child(userId)
+        val email = getCurrentUserID()
+        val currentUserDB = userDB.child(email)
         val user = mutableMapOf<String, Any>()
-        user["userID"] = userId
-        user["name"] = name
+        user["email"] = email
+//        user["name"] = name
         currentUserDB.updateChildren(user)
 //        getUnSelectedUsers()
     }

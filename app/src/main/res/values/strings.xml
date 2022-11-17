@@ -19,7 +19,7 @@
 
     <string name="TODO">avoid warnings</string>
 
-    <string name="id">ID</string>
+    <string name="id">EMAIL</string>
     <string name="password">PASSWORD</string>
 
     <string name="facebook_app_id">1234</string>
