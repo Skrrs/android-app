@@ -11,19 +11,26 @@ import android.os.Environment
 import android.provider.Settings
 import android.util.Log
 import android.widget.Button
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatButton
 import com.example.aop.part2.mask.R
 import com.example.aop.part2.mask.domain.request.API
 import com.example.aop.part2.mask.domain.response.CommonResponse
+import com.example.aop.part2.mask.domain.response.GradeEnum
 import com.example.aop.part2.mask.domain.response.result.GradeResult
 import com.example.aop.part2.mask.presentation.main.MainActivity
+import com.example.aop.part2.mask.token
 import com.example.aop.part2.mask.utils.api.RetrofitClass
 import com.example.aop.part2.mask.utils.record.CountUpView
 import com.example.aop.part2.mask.utils.record.RecordButton
 import com.example.aop.part2.mask.utils.record.SoundVisualizerView
 import com.example.aop.part2.mask.utils.record.State
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
 import okhttp3.MediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -46,7 +53,6 @@ class TestActivity : AppCompatActivity() {
     private val recordButton: RecordButton by lazy {
         findViewById(R.id.recordButton)
     }
-
     private val requiredPermissions = arrayOf(
         Manifest.permission.RECORD_AUDIO,
         Manifest.permission.READ_EXTERNAL_STORAGE
@@ -57,8 +63,17 @@ class TestActivity : AppCompatActivity() {
     private val recordingFilePath2: String by lazy{
         "${Environment.getExternalStorageDirectory().absolutePath}/Download/${Date().time}recording.wav"
     }
-    private var recordFile : File? = null
+
+    // DB
+    private val auth: FirebaseAuth = FirebaseAuth.getInstance()
+    private lateinit var userDB: DatabaseReference
+
+    // Retrofit (API)
     private var rtf : Retrofit? = null
+    private var tkList : List<token>? = null
+
+    // record & play
+    private var recordFile : File? = null
     private var recorder: MediaRecorder? = null
     private var player: MediaPlayer? = null
     private var state = State.BEFORE_RECORDING
@@ -73,7 +88,6 @@ class TestActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_test)
 
-        rtf = RetrofitClass().getRetrofitInstance()
         requestAudioPermission()
         initViews()
         bindViews()
@@ -86,9 +100,18 @@ class TestActivity : AppCompatActivity() {
             finish()
         }
 
+        // TODO - API request 추가 ?
         val btnStar = findViewById<AppCompatButton>(R.id.btnStar)
         val btnReplay = findViewById<AppCompatButton>(R.id.btnReplay)
 
+    }
+
+    private fun getCurrentUserID(): String{
+        if (auth.currentUser == null){
+            Toast.makeText(this, "로그인이 되어있지 않습니다.", Toast.LENGTH_SHORT).show()
+            finish()
+        }
+        return auth.currentUser?.uid.orEmpty()
     }
 
     override fun onRequestPermissionsResult(
@@ -120,6 +143,12 @@ class TestActivity : AppCompatActivity() {
     }
 
     private fun bindViews() {
+        rtf = RetrofitClass().getRetrofitInstance()
+        // TODO - DB?
+        // db = userDb.getInstance(applicationContext)
+        userDB = Firebase.database.reference.child("Users")
+        val currentUserDB = userDB.child(getCurrentUserID())
+
         soundVisualizerView.onRequestCurrentAmplitude = {
             recorder?.maxAmplitude ?: 0
         }
@@ -129,10 +158,14 @@ class TestActivity : AppCompatActivity() {
             recordTimeTextView.clearCountTime()
             state = State.BEFORE_RECORDING
             if(recordFile != null){
-                val header = "TOKEN"
                 val requestFile = RequestBody.create(MediaType.parse("audio/wav"), recordFile)
-                val body = MultipartBody.Part.createFormData("file", recordFile!!.name,requestFile)
-                callGradeProblem(header, body)
+                val record = MultipartBody.Part.createFormData("file", recordFile!!.name,requestFile)
+                callGradeProblem(record)
+                // TODO - DB?
+//                CoroutineScope(Dispatchers.IO).launch {
+//                    tkList = db?.tokenDao()?.getAll()
+//                    callGradeProblem(record)
+//                }
             }
         }
         recordButton.setOnClickListener {
@@ -153,19 +186,39 @@ class TestActivity : AppCompatActivity() {
         }
     }
 
-    private fun callGradeProblem(header: String, body: MultipartBody.Part){
+    private fun callGradeProblem(body: MultipartBody.Part){
         val api = rtf?.create(API::class.java)
-//        val dto = RecordDto(body)
-        val callAPI = api?.requestGrade(header, body)
+        val strToken = "Bearer ${tkList?.get(0)?.tk}"
+        // val dto = RecordDto(body)
+        val callAPI = api?.requestGrade(token = strToken, body)
+
+        var result: GradeEnum = GradeEnum.PERFECT
         callAPI?.enqueue(object : retrofit2.Callback<CommonResponse<GradeResult>> {
             override fun onResponse(call: Call<CommonResponse<GradeResult>>, response: Response<CommonResponse<GradeResult>>) {
                 if (response.isSuccessful) {
                     Log.d("GradeProblem Success", response.code().toString())
-                    when(response.body()?.result){
-//                        1 -> perfect 메시지 출력하기
-//                        2 -> great 메시지 출력하기
-//                        3 -> good 메시지 출력하기
-//                        4 -> bad 메시지 출력하기
+
+                    toastMsg("채점중입니다 ...")
+
+                    // TODO - 주석해제
+                    // result = response.body()?.result?.index!!
+                    when(result){
+                        GradeEnum.PERFECT -> {
+                            // "PERFECT !!!"
+                            gradeDialog("PERFECT ><")
+                        }
+                        GradeEnum.GREAT -> {
+                            // "GREAT !!"
+                            gradeDialog("GREAT ^^")
+                        }
+                        GradeEnum.GOOD -> {
+                            // "GOOD :)"
+                            gradeDialog("GOOD :)")
+                        }
+                        GradeEnum.BAD -> {
+                            // "BAD :("
+                            gradeDialog("BAD :(")
+                        }
                     }
                 } else{
                     Log.d("GradeProblem : Code 400 Error", response.toString())
@@ -248,6 +301,24 @@ class TestActivity : AppCompatActivity() {
         intent.data = uri
         startActivity(intent)
     }
+
+    private fun gradeDialog(msg: String) {
+        AlertDialog.Builder(this)
+            .setMessage(msg)
+            .setPositiveButton("다음 문제로 넘어가기") { _, _ -> nextProblem() }
+            .setNegativeButton("다시 시도하기") { _, _ -> finish() }
+            .show()
+    }
+
+    private fun toastMsg(msg : String){
+        Toast.makeText(
+            this,
+            msg,
+            Toast.LENGTH_SHORT
+        ).show()
+    }
+
+    private fun nextProblem() {}
 
     companion object {
         private const val REQUEST_RECORD_AUDIO_PERMISSION = 201
