@@ -1,20 +1,19 @@
 package com.example.aop.part2.mask.presentation.login
 
+//import androidx.appcompat.widget.AppCompatButton
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
-//import androidx.appcompat.widget.AppCompatButton
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.addTextChangedListener
 import com.example.aop.part2.mask.R
+import com.example.aop.part2.mask.presentation.signup.SignupActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
-import com.google.firebase.ktx.Firebase
 import com.google.firebase.database.ktx.database
-import android.content.Intent
-import com.example.aop.part2.mask.presentation.main.MainActivity
-import com.example.aop.part2.mask.presentation.signup.SignupActivity
+import com.google.firebase.ktx.Firebase
 
 //import com.facebook.AccessToken
 //import com.facebook.CallbackManager
@@ -113,7 +112,8 @@ class LoginActivity : AppCompatActivity() {
             Toast.makeText(this, "로그인에 실패했습니다. 다시 시도해주세요.", Toast.LENGTH_SHORT).show()
             return
         }
-        val email: String = auth.currentUser?.uid.orEmpty()
+        val uid: String = auth.currentUser?.uid.orEmpty()
+        val email: String = auth.currentUser?.email.orEmpty()
         val currentUserDb = Firebase.database.reference.child("Users").child(email)
         val user = mutableMapOf<String, Any>()
         user["email"] = email
