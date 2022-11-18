@@ -18,4 +18,13 @@
     <string name="test_page">1 / 10</string>
 
     <string name="TODO">avoid warnings</string>
+
+    <string name="id">EMAIL</string>
+    <string name="password">PASSWORD</string>
+
+    <string name="facebook_app_id">1234</string>
+    <string name="fb_login_protocol_scheme">fb1234</string>
+    <string name="facebook_client_token">56789</string>
+    <string name="SignUp">회원가입</string>
+    <string name="Login">로그인</string>
 </resources>

@@ -1,10 +1,14 @@
 package com.example.aop.part2.mask.presentation.mypage
 
+import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatButton
 import com.example.aop.part2.mask.R
+import com.example.aop.part2.mask.presentation.library.MylibraryActivity
 import com.example.aop.part2.mask.presentation.login.LoginActivity
 import com.example.aop.part2.mask.presentation.main.MainActivity
 
@@ -14,19 +18,27 @@ class MypageActivity: AppCompatActivity() {
         setContentView(R.layout.activity_mypage)
 
         val MyLibrary = findViewById<AppCompatButton>(R.id.btnMylibrary)
-        val Logout = findViewById<AppCompatButton>(R.id.btnLogout)
-        val Home = findViewById<AppCompatButton>(R.id.btnHome)
-
         MyLibrary.setOnClickListener {
-            val intent = Intent(this, MypageActivity::class.java) //
+            val intent = Intent(this, MylibraryActivity::class.java) //
             startActivity(intent)
             finish()
         }
+
+        val Logout = findViewById<AppCompatButton>(R.id.btnLogout)
         Logout.setOnClickListener {
+            Toast.makeText(
+                this,
+                "로그아웃 합니다. 사용시 재로그인이 필요합니다.",
+                Toast.LENGTH_LONG
+            ).show()
+
             val intent = Intent(this, LoginActivity::class.java) // BeginnerGo
+//            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
             startActivity(intent)
             finish()
         }
+
+        val Home = findViewById<AppCompatButton>(R.id.btnHome)
         Home.setOnClickListener {
             val intent = Intent(this, MainActivity::class.java) // IntermediateGo
             startActivity(intent)

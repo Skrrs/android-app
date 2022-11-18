@@ -12,5 +12,12 @@ class MylibraryActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_mylibrary)
 
+        val Home = findViewById<AppCompatButton>(R.id.btnHome)
+        Home.setOnClickListener {
+            val intent = Intent(this, MainActivity::class.java) // IntermediateGo
+            startActivity(intent)
+            finish()
+        }
+
     }
 }

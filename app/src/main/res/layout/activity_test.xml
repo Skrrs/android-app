@@ -17,17 +17,18 @@
         android:orientation="horizontal"
         app:layout_constraintTop_toTopOf="parent">
 
-        <ImageView
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/header_logo"
-            android:layout_width="50dp"
+            android:layout_width="45dp"
             android:layout_height="50dp"
             android:contentDescription="@string/TODO"
             app:layout_constraintBottom_toBottomOf="@+id/main_header"
-            app:layout_constraintEnd_toEndOf="@+id/main_header"
             app:layout_constraintStart_toStartOf="@+id/main_header"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.5"
-            app:srcCompat="@drawable/border_logo" />
+            app:srcCompat="@drawable/border_logo"
+            android:background="@drawable/border_logo"
+        />
 
     </LinearLayout>
 
@@ -118,15 +119,10 @@
 
         <com.example.aop.part2.mask.utils.record.SoundVisualizerView
             android:id="@+id/soundVisualizeView"
-<<<<<<< HEAD
-            android:layout_width="314dp"
-            android:layout_height="72dp"
-            android:layout_marginTop="20dp"
-=======
+
             android:layout_width="340dp"
             android:layout_height="100dp"
             android:layout_marginTop="16dp"
->>>>>>> 873ed27f59cdb6313581f86ffba8246902ee0298
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
@@ -139,17 +135,10 @@
             android:text="Confirm"
             app:layout_constraintBottom_toBottomOf="@+id/recordButton"
             app:layout_constraintEnd_toStartOf="@+id/recordButton"
-<<<<<<< HEAD
-            app:layout_constraintHorizontal_bias="0.484"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txt_recordTime"
-            app:layout_constraintVertical_bias="0.428"
-=======
             app:layout_constraintHorizontal_bias="0.7"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/txt_recordTime"
             app:layout_constraintVertical_bias="0.5"
->>>>>>> 873ed27f59cdb6313581f86ffba8246902ee0298
             tools:ignore="HardcodedText" />
 
         <com.example.aop.part2.mask.utils.record.CountUpView

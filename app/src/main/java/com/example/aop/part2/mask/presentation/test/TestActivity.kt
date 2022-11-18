@@ -15,14 +15,15 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatButton
 import com.example.aop.part2.mask.R
-import com.example.aop.part2.mask.domain.controller.ProblemController
-import com.example.aop.part2.mask.domain.request.RecordDto
-import com.example.aop.part2.mask.domain.response.Problem
+import com.example.aop.part2.mask.domain.request.API
+import com.example.aop.part2.mask.domain.response.CommonResponse
+import com.example.aop.part2.mask.domain.response.result.GradeResult
+import com.example.aop.part2.mask.presentation.main.MainActivity
 import com.example.aop.part2.mask.utils.api.RetrofitClass
+import com.example.aop.part2.mask.utils.record.CountUpView
 import com.example.aop.part2.mask.utils.record.RecordButton
 import com.example.aop.part2.mask.utils.record.SoundVisualizerView
 import com.example.aop.part2.mask.utils.record.State
-import com.example.aop.part2.mask.utils.record.CountUpView
 import okhttp3.MediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -54,7 +55,7 @@ class TestActivity : AppCompatActivity() {
         "${externalCacheDir?.absolutePath}/recording.3gp"
     }
     private val recordingFilePath2: String by lazy{
-        "${Environment.getExternalStorageDirectory().absolutePath}/Download/${Date().time.toString()}recording.wav"
+        "${Environment.getExternalStorageDirectory().absolutePath}/Download/${Date().time}recording.wav"
     }
     private var recordFile : File? = null
     private var rtf : Retrofit? = null
@@ -77,6 +78,13 @@ class TestActivity : AppCompatActivity() {
         initViews()
         bindViews()
         initVariavbles()
+
+        val logo = findViewById<AppCompatButton>(R.id.header_logo)
+        logo.setOnClickListener {
+            val intent = Intent(this, MainActivity::class.java) //
+            startActivity(intent)
+            finish()
+        }
 
         val btnStar = findViewById<AppCompatButton>(R.id.btnStar)
         val btnReplay = findViewById<AppCompatButton>(R.id.btnReplay)
@@ -121,9 +129,10 @@ class TestActivity : AppCompatActivity() {
             recordTimeTextView.clearCountTime()
             state = State.BEFORE_RECORDING
             if(recordFile != null){
-                val requestFile = RequestBody.create(MediaType.parse("audio/wav"),recordFile)
+                val header = "TOKEN"
+                val requestFile = RequestBody.create(MediaType.parse("audio/wav"), recordFile)
                 val body = MultipartBody.Part.createFormData("file", recordFile!!.name,requestFile)
-                callGradeProblem(body)
+                callGradeProblem(header, body)
             }
         }
         recordButton.setOnClickListener {
@@ -144,28 +153,30 @@ class TestActivity : AppCompatActivity() {
         }
     }
 
-    private fun callGradeProblem(body: MultipartBody.Part){
-        val api = rtf?.create(ProblemController::class.java)
+    private fun callGradeProblem(header: String, body: MultipartBody.Part){
+        val api = rtf?.create(API::class.java)
 //        val dto = RecordDto(body)
-        var callAPI = api?.gradeProblem(body)
-        callAPI?.enqueue(object : retrofit2.Callback<Problem> {
-            override fun onResponse(call: Call<Problem>, response: Response<Problem>) {
+        val callAPI = api?.requestGrade(header, body)
+        callAPI?.enqueue(object : retrofit2.Callback<CommonResponse<GradeResult>> {
+            override fun onResponse(call: Call<CommonResponse<GradeResult>>, response: Response<CommonResponse<GradeResult>>) {
                 if (response.isSuccessful) {
                     Log.d("GradeProblem Success", response.code().toString())
                     when(response.body()?.result){
-//                        1 -> great 메시지 출력하기
-//                        2 -> good 메시지 출력하기
-//                        3 -> bad 메시지 출력하기
+//                        1 -> perfect 메시지 출력하기
+//                        2 -> great 메시지 출력하기
+//                        3 -> good 메시지 출력하기
+//                        4 -> bad 메시지 출력하기
                     }
                 } else{
                     Log.d("GradeProblem : Code 400 Error", response.toString())
                 }
             }
-            override fun onFailure(call: Call<Problem>, t: Throwable) {
+            override fun onFailure(call: Call<CommonResponse<GradeResult>>, t: Throwable) {
                 Log.d("GradeProblem : Code 500 Error", t.toString())
             }
         })
     }
+
     private fun initVariavbles() {
         state = State.BEFORE_RECORDING
     }
