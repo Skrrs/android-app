@@ -11,8 +11,11 @@ import com.example.aop.part2.mask.R
 import com.example.aop.part2.mask.presentation.library.MylibraryActivity
 import com.example.aop.part2.mask.presentation.login.LoginActivity
 import com.example.aop.part2.mask.presentation.main.MainActivity
+import com.google.firebase.auth.FirebaseAuth
 
 class MypageActivity: AppCompatActivity() {
+    private val auth: FirebaseAuth = FirebaseAuth.getInstance()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_mypage)
@@ -31,7 +34,7 @@ class MypageActivity: AppCompatActivity() {
                 "로그아웃 합니다. 사용시 재로그인이 필요합니다.",
                 Toast.LENGTH_LONG
             ).show()
-
+            // TODO - currentUser nullize & erase cache ?
             val intent = Intent(this, LoginActivity::class.java) // BeginnerGo
 //            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
             startActivity(intent)

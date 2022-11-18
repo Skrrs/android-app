@@ -1,16 +1,14 @@
 package com.example.aop.part2.mask.presentation.main
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.EditText
 import android.widget.Toast
-import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatButton
-import com.example.aop.part2.mask.presentation.mypage.MypageActivity
 import com.example.aop.part2.mask.R
 import com.example.aop.part2.mask.presentation.library.MylibraryActivity
 import com.example.aop.part2.mask.presentation.login.LoginActivity
+import com.example.aop.part2.mask.presentation.mypage.MypageActivity
 import com.example.aop.part2.mask.presentation.test.TestActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
@@ -29,6 +27,7 @@ class MainActivity : AppCompatActivity() {
 
         userDB = Firebase.database.reference.child("Users")
         val currentUserDB = userDB.child(getCurrentUserID())
+//        callLevelAcievement()
 
         currentUserDB.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
@@ -80,6 +79,37 @@ class MainActivity : AppCompatActivity() {
         }
         return auth.currentUser?.uid.orEmpty()
     }
+    private fun getCurrentUserEmail(): String{
+        if (auth.currentUser == null){
+            Toast.makeText(this, "로그인이 되어있지 않습니다.", Toast.LENGTH_SHORT).show()
+            finish()
+        }
+        return auth.currentUser?.email.orEmpty()
+    }
+
+    // TODO - callLevelAchivement (request)
+//    private fun callLevelAcievement(token: ){
+//        val loginDto = LoginDto(email)
+//
+//        rtf = RetrofitClass().getRetrofitInstance()
+//        val api = rtf?.create(API::class.java)
+//        val callAPI = api?.requestLogin(loginDto = loginDto)
+//
+//        callAPI?.enqueue(object : retrofit2.Callback<CommonResponse<LoginResult>> {
+//            override fun onResponse(call: Call<CommonResponse<LoginResult>>, response: Response<CommonResponse<LoginResult>>) {
+//                if (response.isSuccessful) {
+//                    Log.d("login Success", response.code().toString())
+//                    var token = response.body()?.result?.token
+//                    var msg = response.body()?.message
+//                } else{
+//                    Log.d("login : Code 400 Error", response.toString())
+//                }
+//            }
+//            override fun onFailure(call: Call<CommonResponse<LoginResult>>, t: Throwable) {
+//                Log.d("GradeProblem : Code 500 Error", t.toString())
+//            }
+//        })
+//    }
 
 //    private fun showNameInputPopup() {
 //        val editText = EditText(this)
@@ -99,7 +129,7 @@ class MainActivity : AppCompatActivity() {
 //    }
 
     private fun saveUserName(name: String) {
-        val email = getCurrentUserID()
+        val email = getCurrentUserEmail()
         val currentUserDB = userDB.child(email)
         val user = mutableMapOf<String, Any>()
         user["email"] = email
