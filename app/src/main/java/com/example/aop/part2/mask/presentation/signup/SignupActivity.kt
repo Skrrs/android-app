@@ -8,19 +8,12 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.addTextChangedListener
 import com.example.aop.part2.mask.R
-import com.example.aop.part2.mask.data.User
 import com.example.aop.part2.mask.presentation.login.LoginActivity
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ktx.database
-import com.google.firebase.ktx.Firebase
 
 class SignupActivity: AppCompatActivity()  {
-    // DB
     private val auth: FirebaseAuth = FirebaseAuth.getInstance()
-//    private lateinit var userDB: DatabaseReference
     private val database = FirebaseDatabase.getInstance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -38,14 +31,6 @@ class SignupActivity: AppCompatActivity()  {
 
     }
 
-    private fun getCurrentUserID(): String{
-        if (auth.currentUser == null){
-            Toast.makeText(this, "로그인이 되어있지 않습니다.", Toast.LENGTH_SHORT).show()
-            finish()
-        }
-        return auth.currentUser?.uid.orEmpty()
-    }
-
     private fun initSignUpButton() {
         val signUpButton = findViewById<Button>(R.id.signUpButton)
         signUpButton.setOnClickListener {
@@ -57,15 +42,10 @@ class SignupActivity: AppCompatActivity()  {
                 Toast.LENGTH_SHORT
             ).show()
 
-//            userDB = Firebase.database.reference.child("Users")
-//            val currentUserDB = userDB.child(getCurrentUserID())
-            val uid = auth.currentUser?.uid.orEmpty()
-
             auth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this) { task ->
                     if (task.isSuccessful) {
-                        // Firebase DB에 user 초기화 및 추가 (User class)
-                        val user = User(email)
+                        // Firebase authentication에 user 추가
                         val emailReference = database.getReference("email")
                         emailReference.setValue(email)
 

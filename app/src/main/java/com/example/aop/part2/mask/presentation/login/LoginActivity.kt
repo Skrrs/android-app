@@ -10,7 +10,6 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.addTextChangedListener
 import com.example.aop.part2.mask.R
-import com.example.aop.part2.mask.data.User
 import com.example.aop.part2.mask.domain.dto.LoginDto
 import com.example.aop.part2.mask.domain.request.API
 import com.example.aop.part2.mask.domain.response.CommonResponse
@@ -18,7 +17,6 @@ import com.example.aop.part2.mask.domain.response.result.LoginResult
 import com.example.aop.part2.mask.presentation.signup.SignupActivity
 import com.example.aop.part2.mask.utils.api.RetrofitClass
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import retrofit2.Call
