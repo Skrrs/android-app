@@ -28,6 +28,7 @@ import com.example.aop.part2.mask.utils.record.SoundVisualizerView
 import com.example.aop.part2.mask.utils.record.State
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import okhttp3.MediaType
@@ -66,10 +67,10 @@ class TestActivity : AppCompatActivity() {
     // DB
     private val auth: FirebaseAuth = FirebaseAuth.getInstance()
     private lateinit var userDB: DatabaseReference
+    private val databaseReference = FirebaseDatabase.getInstance().reference
 
     // Retrofit (API)
     private var rtf : Retrofit? = null
-    private var tkList : List<token>? = null
 
     // record & play
     private var recordFile : File? = null
@@ -159,7 +160,12 @@ class TestActivity : AppCompatActivity() {
             if(recordFile != null){
                 val requestFile = RequestBody.create(MediaType.parse("audio/wav"), recordFile)
                 val record = MultipartBody.Part.createFormData("file", recordFile!!.name,requestFile)
-                callGradeProblem(record)
+                databaseReference.child("token").get().addOnSuccessListener {
+                    Log.i("firebase", "Got value ${it.value}")
+                    callGradeProblem(it.value as String, record)
+                }.addOnFailureListener{
+                    Log.e("firebase", "Error getting data", it)
+                }
                 // TODO - DB?
 //                CoroutineScope(Dispatchers.IO).launch {
 //                    tkList = db?.tokenDao()?.getAll()
@@ -185,9 +191,9 @@ class TestActivity : AppCompatActivity() {
         }
     }
 
-    private fun callGradeProblem(body: MultipartBody.Part){
+    private fun callGradeProblem(token: String, body: MultipartBody.Part){
         val api = rtf?.create(API::class.java)
-        val strToken = "Bearer ${tkList?.get(0)?.tk}"
+        val strToken = "Bearer ${token}"
         // val dto = RecordDto(body)
         val callAPI = api?.requestGrade(token = strToken, body)
 

@@ -40,7 +40,6 @@ import retrofit2.Retrofit
 
 class MainActivity : AppCompatActivity() {
     private val auth: FirebaseAuth = FirebaseAuth.getInstance()
-    private val database = Firebase.database
     private val databaseReference = FirebaseDatabase.getInstance().reference
 
     var beginner = 0; var intermediate  = 0; var advanced = 0
