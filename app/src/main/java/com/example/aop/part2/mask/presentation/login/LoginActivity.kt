@@ -10,6 +10,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.addTextChangedListener
 import com.example.aop.part2.mask.R
+import com.example.aop.part2.mask.data.User
 import com.example.aop.part2.mask.domain.dto.LoginDto
 import com.example.aop.part2.mask.domain.request.API
 import com.example.aop.part2.mask.domain.response.CommonResponse
@@ -36,12 +37,8 @@ import retrofit2.Retrofit
 class LoginActivity : AppCompatActivity() {
     // DB
     private val auth: FirebaseAuth = FirebaseAuth.getInstance()
-    private lateinit var userDB: DatabaseReference
-    // private lateinit var callbackManager: CallbackManager
-
-    // Retrofit (API)
-//    private var rtf : Retrofit? = null
-//    private var tkList : List<token>? = null
+    private val database = Firebase.database
+//    private lateinit var userDB: DatabaseReference
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -121,13 +118,16 @@ class LoginActivity : AppCompatActivity() {
 
         // TODO - Login API request
         val email: String = auth.currentUser?.email.orEmpty()
+
         callLogin(email)
 
         finish()
     }
-    private var rtf : Retrofit? = null
 
-    private fun callLogin(email: String){
+    // Retrofit (API)
+    private var rtf : Retrofit? = null
+//    private var tkList : List<token>? = null
+    private fun callLogin(email: String) {
         val loginDto = LoginDto(email)
 
         rtf = RetrofitClass().getRetrofitInstance()
@@ -138,35 +138,36 @@ class LoginActivity : AppCompatActivity() {
             override fun onResponse(call: Call<CommonResponse<LoginResult>>, response: Response<CommonResponse<LoginResult>>) {
                 if (response.isSuccessful) {
                     Log.d("login Success", response.code().toString())
-                    var token = response.body()?.result?.token
-                    var msg = response.body()?.message
+                    var token = response.body()?.result?.token ?: String()
+                    Log.d("MessageToken : ",token)
+                    val tokenReference = database.getReference("token")
+                    tokenReference.setValue(token)
+//                    saveUserToken(token)
+//                    var msg = response.body()?.message
                 } else{
                     Log.d("login : Code 400 Error", response.toString())
                 }
             }
             override fun onFailure(call: Call<CommonResponse<LoginResult>>, t: Throwable) {
-                Log.d("GradeProblem : Code 500 Error", t.toString())
+                Log.d("Login : Code 500 Error", t.toString())
             }
         })
     }
 
-//    ######## About Facebook #########
-//    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-//        super.onActivityResult(requestCode, resultCode, data)
-//
-//        // Pass the activity result back to the Facebook SDK
-////        callbackManager.onActivityResult(requestCode, resultCode, data)
+//    private fun saveUserToken(token: String) {
+//        val userId = getCurrentUserID()
+//        val currentUserDB = userDB.child(userId)
+//        val user = mutableMapOf<String, Any>()
+//        user["userId"] = userId
+//        user["token"] = token
+//        currentUserDB.updateChildren(user)
 //    }
-//
-//    private fun handleFacebookAccessToken(token: AccessToken) {
-//        val credential = FacebookAuthProvider.getCredential(token.token)
-//        auth.signInWithCredential(credential)
-//            .addOnCompleteListener(this) { task ->
-//                if (task.isSuccessful) {
-//                    successLogin()
-//                } else {
-//                    Toast.makeText(this, "페이스북 로그인에 실패했습니다. 다시 시도해주세요.", Toast.LENGTH_SHORT).show()
-//                }
-//            }
-//    }
+
+    private fun getCurrentUserID(): String {
+        if (auth.currentUser == null) {
+            Toast.makeText(this, "로그인이 되어있지않습니다.", Toast.LENGTH_SHORT).show()
+            finish()
+        }
+        return auth.currentUser?.uid.orEmpty()
+    }
 }

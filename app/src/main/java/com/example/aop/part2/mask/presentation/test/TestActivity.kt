@@ -21,7 +21,6 @@ import com.example.aop.part2.mask.domain.response.CommonResponse
 import com.example.aop.part2.mask.domain.response.GradeEnum
 import com.example.aop.part2.mask.domain.response.result.GradeResult
 import com.example.aop.part2.mask.presentation.main.MainActivity
-import com.example.aop.part2.mask.token
 import com.example.aop.part2.mask.utils.api.RetrofitClass
 import com.example.aop.part2.mask.utils.record.CountUpView
 import com.example.aop.part2.mask.utils.record.RecordButton
@@ -319,6 +318,11 @@ class TestActivity : AppCompatActivity() {
     }
 
     private fun nextProblem() {}
+
+    override fun onStart() {
+        super.onStart()
+
+    }
 
     companion object {
         private const val REQUEST_RECORD_AUDIO_PERMISSION = 201

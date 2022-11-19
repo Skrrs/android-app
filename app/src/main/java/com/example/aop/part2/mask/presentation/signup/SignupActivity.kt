@@ -20,9 +20,8 @@ import com.google.firebase.ktx.Firebase
 class SignupActivity: AppCompatActivity()  {
     // DB
     private val auth: FirebaseAuth = FirebaseAuth.getInstance()
-    private lateinit var userDB: DatabaseReference
+//    private lateinit var userDB: DatabaseReference
     private val database = FirebaseDatabase.getInstance()
-    private val databaseReference: DatabaseReference = database.reference
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -58,7 +57,7 @@ class SignupActivity: AppCompatActivity()  {
                 Toast.LENGTH_SHORT
             ).show()
 
-            userDB = Firebase.database.reference.child("Users")
+//            userDB = Firebase.database.reference.child("Users")
 //            val currentUserDB = userDB.child(getCurrentUserID())
             val uid = auth.currentUser?.uid.orEmpty()
 
@@ -67,7 +66,8 @@ class SignupActivity: AppCompatActivity()  {
                     if (task.isSuccessful) {
                         // Firebase DB에 user 초기화 및 추가 (User class)
                         val user = User(email)
-                        databaseReference.child("Users").child(uid).setValue(user)
+                        val emailReference = database.getReference("email")
+                        emailReference.setValue(email)
 
                         Toast.makeText(
                             this,

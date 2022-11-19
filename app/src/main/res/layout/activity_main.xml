@@ -110,7 +110,7 @@
         android:id="@+id/level_beginner"
         android:layout_width="100dp"
         android:layout_height="160dp"
-        android:background="#ADE76B"
+        android:background="@color/beginner"
         android:paddingTop="15dp"
         android:text="Beginner"
         android:textAlignment="center"
@@ -120,6 +120,15 @@
         app:layout_constraintEnd_toStartOf="@+id/level_intermediate"
         app:layout_constraintStart_toStartOf="@+id/level_box"
         app:layout_constraintTop_toTopOf="@+id/level_box" />
+
+    <com.github.mikephil.charting.charts.PieChart
+        android:id="@+id/beginnerChart"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        android:layout_marginBottom="12dp"
+        app:layout_constraintBottom_toTopOf="@+id/beginner_go"
+        app:layout_constraintEnd_toEndOf="@+id/level_beginner"
+        app:layout_constraintStart_toStartOf="@+id/level_beginner" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/beginner_go"
@@ -140,7 +149,7 @@
         android:id="@+id/level_intermediate"
         android:layout_width="100dp"
         android:layout_height="160dp"
-        android:background="#03A9F4"
+        android:background="@color/intermediate"
         android:paddingTop="15dp"
         android:text="Intermediate"
         android:textAlignment="center"
@@ -150,6 +159,16 @@
         app:layout_constraintEnd_toEndOf="@+id/level_box"
         app:layout_constraintStart_toStartOf="@+id/level_box"
         app:layout_constraintTop_toTopOf="@+id/level_box" />
+
+
+    <com.github.mikephil.charting.charts.PieChart
+        android:id="@+id/intermediateChart"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        android:layout_marginBottom="12dp"
+        app:layout_constraintBottom_toTopOf="@+id/intermediate_go"
+        app:layout_constraintEnd_toEndOf="@+id/level_intermediate"
+        app:layout_constraintStart_toStartOf="@+id/level_intermediate" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/intermediate_go"
@@ -170,7 +189,7 @@
         android:id="@+id/level_advanced"
         android:layout_width="100dp"
         android:layout_height="160dp"
-        android:background="#F73476"
+        android:background="@color/advanced"
         android:paddingTop="15dp"
         android:text="Advanced"
         android:textAlignment="center"
@@ -180,6 +199,15 @@
         app:layout_constraintEnd_toEndOf="@+id/level_box"
         app:layout_constraintStart_toEndOf="@+id/level_intermediate"
         app:layout_constraintTop_toTopOf="@+id/level_box" />
+
+    <com.github.mikephil.charting.charts.PieChart
+        android:id="@+id/advancedChart"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        android:layout_marginBottom="12dp"
+        app:layout_constraintBottom_toTopOf="@+id/advanced_go"
+        app:layout_constraintEnd_toEndOf="@+id/level_advanced"
+        app:layout_constraintStart_toStartOf="@+id/level_advanced" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/advanced_go"
