@@ -17,13 +17,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Mask">
         <activity
-            android:name=".PieChartActivity"
-            android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-        <activity
             android:name=".presentation.main.MainActivity"
             android:exported="true">
             <intent-filter>
@@ -41,6 +34,7 @@
         <activity android:name=".presentation.mypage.MypageActivity" />
         <activity android:name=".presentation.library.MylibraryActivity" />
         <activity android:name=".presentation.test.TestActivity" />
+        <activity android:name=".presentation.result.ResultActivity" />
     </application>
 
 </manifest>

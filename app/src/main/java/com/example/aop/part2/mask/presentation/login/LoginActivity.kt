@@ -140,8 +140,6 @@ class LoginActivity : AppCompatActivity() {
                     Log.d("MessageToken : ",token)
                     val tokenReference = database.getReference("token")
                     tokenReference.setValue(token)
-//                    saveUserToken(token)
-//                    var msg = response.body()?.message
                 } else{
                     Log.d("login : Code 400 Error", response.toString())
                 }
@@ -151,15 +149,6 @@ class LoginActivity : AppCompatActivity() {
             }
         })
     }
-
-//    private fun saveUserToken(token: String) {
-//        val userId = getCurrentUserID()
-//        val currentUserDB = userDB.child(userId)
-//        val user = mutableMapOf<String, Any>()
-//        user["userId"] = userId
-//        user["token"] = token
-//        currentUserDB.updateChildren(user)
-//    }
 
     private fun getCurrentUserID(): String {
         if (auth.currentUser == null) {

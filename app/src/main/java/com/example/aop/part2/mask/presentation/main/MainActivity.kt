@@ -16,6 +16,7 @@ import com.example.aop.part2.mask.domain.response.result.LevelAchievementResult
 import com.example.aop.part2.mask.presentation.library.MylibraryActivity
 import com.example.aop.part2.mask.presentation.login.LoginActivity
 import com.example.aop.part2.mask.presentation.mypage.MypageActivity
+import com.example.aop.part2.mask.presentation.result.ResultActivity
 import com.example.aop.part2.mask.presentation.test.TestActivity
 import com.example.aop.part2.mask.utils.api.RetrofitClass
 //PieChart
@@ -42,7 +43,7 @@ class MainActivity : AppCompatActivity() {
     private val auth: FirebaseAuth = FirebaseAuth.getInstance()
     private val databaseReference = FirebaseDatabase.getInstance().reference
 
-    var beginner = 0; var intermediate  = 0; var advanced = 0
+    var beginner = 73; var intermediate  = 49; var advanced = 9
     var msg:String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -55,7 +56,6 @@ class MainActivity : AppCompatActivity() {
         val intermediateGo = findViewById<AppCompatButton>(R.id.intermediate_go)
         val advancedGo = findViewById<AppCompatButton>(R.id.advanced_go)
 
-
         // TODO - Piechart (beginner, intermediate, advanced)
         showPieChart(beginner, intermediate, advanced)
 
@@ -64,21 +64,25 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
         dictionary.setOnClickListener{
-            val intent = Intent(this, MylibraryActivity::class.java) //
+//            val intent = Intent(this, MylibraryActivity::class.java) //
+            val intent = Intent(this, ResultActivity::class.java) //
             startActivity(intent)
         }
         beginnerGo.setOnClickListener{
             val intent = Intent(this, TestActivity::class.java) // BeginnerGo
+//            intent.putExtra("level", "beginner")
             startActivity(intent)
             finish()
         }
         intermediateGo.setOnClickListener{
             val intent = Intent(this, TestActivity::class.java) // IntermediateGo
+//            intent.putExtra("level", "intermediate")
             startActivity(intent)
             finish()
         }
         advancedGo.setOnClickListener{
             val intent = Intent(this, TestActivity::class.java) // AdvancedGo
+//            intent.putExtra("level", "advanced")
             startActivity(intent)
             finish()
         }
@@ -93,23 +97,25 @@ class MainActivity : AppCompatActivity() {
         rtf = RetrofitClass().getRetrofitInstance()
         val api = rtf?.create(API::class.java)
         val strToken = "Bearer ${token}"
-        val callAPI = api?.requestLevelAchievement(email = email, token = strToken)
-        callAPI?.enqueue(object : retrofit2.Callback<CommonResponse<LevelAchievementResult>> {
-            override fun onResponse(call: Call<CommonResponse<LevelAchievementResult>>, response: Response<CommonResponse<LevelAchievementResult>>) {
-                if (response.isSuccessful) {
-                    Log.d("Main Success", response.code().toString())
-                    beginner = response.body()?.result?.beginner!!
-                    intermediate = response.body()?.result?.beginner!!
-                    advanced = response.body()?.result?.beginner!!
-                    msg = response.body()?.message.toString()
-                } else{
-                    Log.d(" Main Request: Code 400 Error", response.toString())
-                }
-            }
-            override fun onFailure(call: Call<CommonResponse<LevelAchievementResult>>, t: Throwable) {
-                Log.d("Main Request : Code 500 Error", t.toString())
-            }
-        })
+
+        // TODO - 주석해제
+//        val callAPI = api?.requestLevelAchievement(email = email, token = strToken)
+//        callAPI?.enqueue(object : retrofit2.Callback<CommonResponse<LevelAchievementResult>> {
+//            override fun onResponse(call: Call<CommonResponse<LevelAchievementResult>>, response: Response<CommonResponse<LevelAchievementResult>>) {
+//                if (response.isSuccessful) {
+//                    Log.d("Main Success", response.code().toString())
+//                    beginner = response.body()?.result?.beginner!!
+//                    intermediate = response.body()?.result?.beginner!!
+//                    advanced = response.body()?.result?.beginner!!
+//                    msg = response.body()?.message.toString()
+//                } else{
+//                    Log.d(" Main Request: Code 400 Error", response.toString())
+//                }
+//            }
+//            override fun onFailure(call: Call<CommonResponse<LevelAchievementResult>>, t: Throwable) {
+//                Log.d("Main Request : Code 500 Error", t.toString())
+//            }
+//        })
     }
 
     private var beginnerChart : PieChart? = null
@@ -121,9 +127,9 @@ class MainActivity : AppCompatActivity() {
             this.isRotationEnabled = true
             this.holeRadius = 70f
             this.setTransparentCircleAlpha(0)
-            this.centerText = beginner.toString()
-            this.setCenterTextSize(25f)
-            setCenterTextColor(Color.DKGRAY)
+            this.centerText = "$beginner%"
+            this.setCenterTextSize(15f)
+            setCenterTextColor(Color.BLACK)
             this.setDrawEntryLabels(false)
             this.description.isEnabled = false
             animateY(1400, Easing.EaseInOutQuad)
@@ -147,17 +153,17 @@ class MainActivity : AppCompatActivity() {
             this.isRotationEnabled = true
             this.holeRadius = 70f
             this.setTransparentCircleAlpha(0)
-            this.centerText = intermediate.toString()
-            this.setCenterTextSize(25f)
-            setCenterTextColor(Color.DKGRAY)
+            this.centerText = "$intermediate%"
+            this.setCenterTextSize(15f)
+            setCenterTextColor(Color.BLACK)
             this.setDrawEntryLabels(false)
             this.description.isEnabled = false
             animateY(1400, Easing.EaseInOutQuad)
             animate()
         }
         val yValuesIntermediate:ArrayList<PieEntry> = ArrayList()
-        yValuesIntermediate.add(PieEntry(beginner.toFloat(), ""))
-        yValuesIntermediate.add(PieEntry((100-beginner).toFloat(), ""))
+        yValuesIntermediate.add(PieEntry(intermediate.toFloat(), ""))
+        yValuesIntermediate.add(PieEntry((100-intermediate).toFloat(), ""))
 
         val dataSetIntermediate: PieDataSet = PieDataSet(yValuesIntermediate, "")
         dataSetIntermediate.sliceSpace = 2f
@@ -176,18 +182,17 @@ class MainActivity : AppCompatActivity() {
             this.isRotationEnabled = true
             this.holeRadius = 70f
             this.setTransparentCircleAlpha(0)
-            this.centerText = advanced.toString()
-            this.setCenterTextSize(25f)
-            setCenterTextColor(Color.DKGRAY)
+            this.centerText = "$advanced%"
+            this.setCenterTextSize(15f)
+            setCenterTextColor(Color.BLACK)
             this.setDrawEntryLabels(false)
             this.description.isEnabled = false
             animateY(1400, Easing.EaseInOutQuad)
             animate()
         }
         val yValuesAdvanced:ArrayList<PieEntry> = ArrayList()
-        yValuesAdvanced.add(PieEntry(beginner.toFloat(), ""))
-        yValuesAdvanced.add(PieEntry((100-beginner).toFloat(), ""))
-
+        yValuesAdvanced.add(PieEntry(advanced.toFloat(), ""))
+        yValuesAdvanced.add(PieEntry((100-advanced).toFloat(), ""))
         val dataSetAdvanced: PieDataSet = PieDataSet(yValuesAdvanced, "")
         dataSetAdvanced.sliceSpace = 2f
         dataSetAdvanced.valueTextSize = 0f
@@ -196,7 +201,7 @@ class MainActivity : AppCompatActivity() {
         var advancedLegend = advancedChart?.legend
         advancedLegend?.isEnabled = false
 
-        var advancedPieData = PieData(dataSetIntermediate)
+        var advancedPieData = PieData(dataSetAdvanced)
         advancedChart?.data = advancedPieData
         advancedChart?.invalidate()
     }

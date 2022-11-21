@@ -36,8 +36,8 @@ interface API {
     @GET("/api/user/{email}/test/{level}")
     fun requestTest(
         @Path("email") email: String,
-        @Path("level") level: Int,
-        @Header("Authorization") token : String
+        @Path("level") level: String?,
+        @Header("Authorization") token: String
     ) : Call<CommonResponse<TestResult>>
 
     // ##################

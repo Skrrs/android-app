@@ -3,6 +3,7 @@ package com.example.aop.part2.mask.presentation.mypage
 import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -15,10 +16,21 @@ import com.google.firebase.auth.FirebaseAuth
 
 class MypageActivity: AppCompatActivity() {
     private val auth: FirebaseAuth = FirebaseAuth.getInstance()
+    private val name = "김가면"
+    private val email = "mask@sogang.ac.kr"
+    private val attendance = 13
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_mypage)
+
+        val nameView: TextView = findViewById(R.id.mypage_name)
+        val emailView: TextView = findViewById(R.id.mypage_email)
+        val attendanceView: TextView = findViewById(R.id.mypage_attendance)
+
+        nameView.setText(name)
+        emailView.setText(email)
+        attendanceView.setText("출석 : $attendance 일차")
 
         val MyLibrary = findViewById<AppCompatButton>(R.id.btnMylibrary)
         MyLibrary.setOnClickListener {
