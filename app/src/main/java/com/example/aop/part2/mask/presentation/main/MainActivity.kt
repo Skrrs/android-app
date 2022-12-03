@@ -4,19 +4,18 @@ import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
-import android.widget.Button
+import android.widget.LinearLayout
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatButton
 import com.example.aop.part2.mask.R
-import com.example.aop.part2.mask.domain.dto.LoginDto
 import com.example.aop.part2.mask.domain.request.API
 import com.example.aop.part2.mask.domain.response.CommonResponse
 import com.example.aop.part2.mask.domain.response.result.LevelAchievementResult
 import com.example.aop.part2.mask.presentation.library.MylibraryActivity
 import com.example.aop.part2.mask.presentation.login.LoginActivity
 import com.example.aop.part2.mask.presentation.mypage.MypageActivity
-import com.example.aop.part2.mask.presentation.result.ResultActivity
 import com.example.aop.part2.mask.presentation.test.TestActivity
 import com.example.aop.part2.mask.utils.api.RetrofitClass
 //PieChart
@@ -27,13 +26,7 @@ import com.github.mikephil.charting.data.PieDataSet
 import com.github.mikephil.charting.data.PieEntry
 //Firebase
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ValueEventListener
-import com.google.firebase.database.ktx.database
-import com.google.firebase.ktx.Firebase
 //retrofit
 import retrofit2.Call
 import retrofit2.Response
@@ -43,12 +36,17 @@ class MainActivity : AppCompatActivity() {
     private val auth: FirebaseAuth = FirebaseAuth.getInstance()
     private val databaseReference = FirebaseDatabase.getInstance().reference
 
-    var beginner = 73; var intermediate  = 49; var advanced = 9
+    private var token: String = ""
+    private var email: String = ""
+    private var attendanceDay: Int = 1
+
+    var beginner = 0; var intermediate  = 0; var advanced = 0
     var msg:String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        val attendanceText: TextView = findViewById<TextView>(R.id.attendanceText)
 
         val user = findViewById<AppCompatButton>(R.id.header_user)
         val dictionary = findViewById<AppCompatButton>(R.id.header_dictionary)
@@ -56,33 +54,50 @@ class MainActivity : AppCompatActivity() {
         val intermediateGo = findViewById<AppCompatButton>(R.id.intermediate_go)
         val advancedGo = findViewById<AppCompatButton>(R.id.advanced_go)
 
-        // TODO - Piechart (beginner, intermediate, advanced)
-        showPieChart(beginner, intermediate, advanced)
-
+//        attendanceText.text = attendanceDay.toString()
         user.setOnClickListener{
             val intent = Intent(this, MypageActivity::class.java) //
+//            intent.putExtra("name", name)
+            intent.putExtra("email", email)
+//            intent.putExtra("attendance", attendance)
             startActivity(intent)
         }
+
         dictionary.setOnClickListener{
-//            val intent = Intent(this, MylibraryActivity::class.java) //
-            val intent = Intent(this, ResultActivity::class.java) //
+            val intent = Intent(this, MylibraryActivity::class.java)
+            intent.putExtra("token", token )
+            intent.putExtra("email", email)
+//            val intent = Intent(this, ResultActivity::class.java) //
+//            toastMsg("학습이 끝났습니다.")
+//            intent.putExtra("token", token )
+//            intent.putExtra("email", email)
+//            intent.putExtra("problem", arrayListOf(1,3,5,7,10))
+//            intent.putExtra("correct", arrayListOf(2,4,6,7,8,9))
+//            intent.putExtra("wrong", arrayListOf(1,3,5,10))
             startActivity(intent)
+            finish()
         }
         beginnerGo.setOnClickListener{
             val intent = Intent(this, TestActivity::class.java) // BeginnerGo
-//            intent.putExtra("level", "beginner")
+            intent.putExtra("token", token)
+            intent.putExtra("email", email)
+            intent.putExtra("level", 1)
             startActivity(intent)
             finish()
         }
         intermediateGo.setOnClickListener{
             val intent = Intent(this, TestActivity::class.java) // IntermediateGo
-//            intent.putExtra("level", "intermediate")
+            intent.putExtra("token", token)
+            intent.putExtra("email", email)
+            intent.putExtra("level", 2)
             startActivity(intent)
             finish()
         }
         advancedGo.setOnClickListener{
             val intent = Intent(this, TestActivity::class.java) // AdvancedGo
-//            intent.putExtra("level", "advanced")
+            intent.putExtra("token", token)
+            intent.putExtra("email", email)
+            intent.putExtra("level", 3)
             startActivity(intent)
             finish()
         }
@@ -92,30 +107,37 @@ class MainActivity : AppCompatActivity() {
 
     // Retrofit (API)
     private var rtf : Retrofit? = null
-    //    private var tkList : List<token>? = null
-    private fun callLevelAchievement(token: String, email:String){
+    private fun callLevelAchievement(){
         rtf = RetrofitClass().getRetrofitInstance()
         val api = rtf?.create(API::class.java)
-        val strToken = "Bearer ${token}"
 
         // TODO - 주석해제
-//        val callAPI = api?.requestLevelAchievement(email = email, token = strToken)
-//        callAPI?.enqueue(object : retrofit2.Callback<CommonResponse<LevelAchievementResult>> {
-//            override fun onResponse(call: Call<CommonResponse<LevelAchievementResult>>, response: Response<CommonResponse<LevelAchievementResult>>) {
-//                if (response.isSuccessful) {
-//                    Log.d("Main Success", response.code().toString())
-//                    beginner = response.body()?.result?.beginner!!
-//                    intermediate = response.body()?.result?.beginner!!
-//                    advanced = response.body()?.result?.beginner!!
-//                    msg = response.body()?.message.toString()
-//                } else{
-//                    Log.d(" Main Request: Code 400 Error", response.toString())
-//                }
-//            }
-//            override fun onFailure(call: Call<CommonResponse<LevelAchievementResult>>, t: Throwable) {
-//                Log.d("Main Request : Code 500 Error", t.toString())
-//            }
-//        })
+        val callAPI = api?.requestLevelAchievement(email = email, token = token)
+        callAPI?.enqueue(object : retrofit2.Callback<CommonResponse<LevelAchievementResult>> {
+            override fun onResponse(call: Call<CommonResponse<LevelAchievementResult>>, response: Response<CommonResponse<LevelAchievementResult>>) {
+                if (response.isSuccessful) {
+                    Log.d("Main Success", response.code().toString())
+                    beginner = response.body()?.result?.beginner!!
+                    intermediate = response.body()?.result?.intermediate!!
+                    advanced = response.body()?.result?.advanced!!
+//                    attendanceDay = 10
+                    attendanceDay = response.body()?.result?.attendance!!
+                    showPieChart(beginner, intermediate, advanced)
+                    val attendanceText: TextView = findViewById<TextView>(R.id.attendanceText)
+                    if(attendanceDay <= 1){
+                        attendanceText.text = "${attendanceDay} Day"
+                    } else {
+                        attendanceText.text = "${attendanceDay} Days"
+                    }
+                    msg = response.body()?.message.toString()
+                } else{
+                    Log.d(" Main Request: Code 400 Error", response.toString())
+                }
+            }
+            override fun onFailure(call: Call<CommonResponse<LevelAchievementResult>>, t: Throwable) {
+                Log.d("Main Request : Code 500 Error", t.toString())
+            }
+        })
     }
 
     private var beginnerChart : PieChart? = null
@@ -213,18 +235,12 @@ class MainActivity : AppCompatActivity() {
         }
         return auth.currentUser?.uid.orEmpty()
     }
-    private fun getCurrentUserEmail(): String{
-        if (auth.currentUser == null){
-            Toast.makeText(this, "로그인이 되어있지 않습니다.", Toast.LENGTH_SHORT).show()
-            finish()
-        }
-        return auth.currentUser?.email.orEmpty()
-    }
-    private fun toastErrorMsg(){
+
+    private fun toastMsg(msg: String) {
         Toast.makeText(
             this,
-            "Error!",
-            Toast.LENGTH_SHORT
+            msg,
+            Toast.LENGTH_LONG
         ).show()
     }
 
@@ -234,16 +250,15 @@ class MainActivity : AppCompatActivity() {
             startActivity(Intent(this, LoginActivity::class.java))
             finish()
         }
-        else{
-            // TODO - Main 요청
-            val email: String = auth.currentUser?.email.orEmpty()
-            val token: String = ""
-            databaseReference.child("token").get().addOnSuccessListener {
-                Log.i("firebase", "Got value ${it.value}")
-                callLevelAchievement(it.value as String, email)
-            }.addOnFailureListener{
-                Log.e("firebase", "Error getting data", it)
-            }
+        // TODO - Main 요청
+        email = auth.currentUser?.email.orEmpty()
+        databaseReference.child("token").get().addOnSuccessListener {
+            Log.i("firebase", "Got value ${it.value}")
+            token = "Bearer ${it.value}"
+            callLevelAchievement()
+        }.addOnFailureListener{
+            Log.e("firebase", "Error getting data", it)
         }
     }
+
 }

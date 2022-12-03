@@ -42,70 +42,28 @@
             android:layout_gravity="end|center_vertical"
             android:layout_marginEnd="16dp"
             android:background="@drawable/border_library" />
-
     </LinearLayout>
-<!--    <TextView-->
-<!--        android:id="@+id/main_header"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="70dp"-->
-<!--        android:background="@color/white"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintHorizontal_bias="1.0"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="parent" />-->
-
-<!--    <androidx.appcompat.widget.AppCompatButton-->
-<!--        android:id="@+id/header_user"-->
-<!--        android:layout_width="40dp"-->
-<!--        android:layout_height="40dp"-->
-<!--        android:layout_marginStart="16dp"-->
-<!--        android:background="@drawable/border_user"-->
-<!--        app:layout_constraintBottom_toBottomOf="@+id/main_header"-->
-<!--        app:layout_constraintStart_toStartOf="@+id/main_header"-->
-<!--        app:layout_constraintTop_toTopOf="@+id/main_header"-->
-<!--        app:layout_constraintVertical_bias="0.5" />-->
-
-<!--    <ImageView-->
-<!--        android:id="@+id/header_logo"-->
-<!--        android:layout_width="45dp"-->
-<!--        android:layout_height="45dp"-->
-<!--        android:contentDescription="@string/TODO"-->
-<!--        app:layout_constraintBottom_toBottomOf="@+id/main_header"-->
-<!--        app:layout_constraintEnd_toStartOf="@+id/header_dictionary"-->
-<!--        app:layout_constraintStart_toEndOf="@+id/header_user"-->
-<!--        app:layout_constraintTop_toTopOf="parent"-->
-<!--        app:layout_constraintVertical_bias="0.5"-->
-<!--        app:srcCompat="@drawable/border_logo" />-->
-
-<!--    <androidx.appcompat.widget.AppCompatButton-->
-<!--        android:id="@+id/header_dictionary"-->
-<!--        android:layout_width="40dp"-->
-<!--        android:layout_height="40dp"-->
-<!--        android:layout_marginEnd="16dp"-->
-<!--        android:background="@drawable/border_library"-->
-<!--        app:layout_constraintBottom_toBottomOf="@+id/main_header"-->
-<!--        app:layout_constraintEnd_toEndOf="@+id/main_header"-->
-<!--        app:layout_constraintTop_toTopOf="@+id/main_header"-->
-<!--        app:layout_constraintVertical_bias="0.5" />-->
-
     <!--    Body -->
-
-    <!--    Beginner -->
-
     <TextView
         android:id="@+id/level_box"
-        android:layout_width="370dp"
-        android:layout_height="200dp"
-        android:layout_marginTop="36dp"
-        android:background="#FFC107"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginEnd="25dp"
+        android:background="#FCD769"
         android:foregroundGravity="center"
-        app:layout_constraintBottom_toTopOf="@+id/Calender"
+        android:gravity="center|top"
+        android:paddingTop="20dp"
+        android:text="Study"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/attendance"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/header"
-        tools:ignore="MissingConstraints" />
+        app:layout_constraintTop_toBottomOf="@+id/header" />
 
+    <!--    Beginner -->
     <TextView
         android:id="@+id/level_beginner"
         android:layout_width="100dp"
@@ -116,6 +74,7 @@
         android:textAlignment="center"
         android:textColor="@color/black"
         android:textStyle="bold"
+        android:layout_marginTop="25dp"
         app:layout_constraintBottom_toBottomOf="@+id/level_box"
         app:layout_constraintEnd_toStartOf="@+id/level_intermediate"
         app:layout_constraintStart_toStartOf="@+id/level_box"
@@ -152,6 +111,7 @@
         android:background="@color/intermediate"
         android:paddingTop="15dp"
         android:text="Intermediate"
+        android:layout_marginTop="25dp"
         android:textAlignment="center"
         android:textColor="@color/black"
         android:textStyle="bold"
@@ -192,6 +152,7 @@
         android:background="@color/advanced"
         android:paddingTop="15dp"
         android:text="Advanced"
+        android:layout_marginTop="25dp"
         android:textAlignment="center"
         android:textColor="@color/black"
         android:textStyle="bold"
@@ -224,16 +185,39 @@
         app:layout_constraintTop_toTopOf="@+id/level_advanced"
         app:layout_constraintVertical_bias="0.95" />
 
-    <TextView
-        android:id="@+id/Calender"
-        android:layout_width="370dp"
-        android:layout_height="300dp"
+    <LinearLayout
+        android:id="@+id/attendance"
+        android:layout_width="match_parent"
+        android:layout_height="170dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginEnd="25dp"
         android:background="@color/purple_200"
-        android:gravity="center_horizontal|center_vertical"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
         app:layout_constraintBottom_toTopOf="@+id/main_footer"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/level_box" />
+        app:layout_constraintTop_toBottomOf="@+id/level_box">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:text="연속 출석일"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/attendanceText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="5dp"
+            android:textColor="@color/white"
+            android:textSize="35sp"
+            android:textStyle="bold"
+            tools:text="0" />
+    </LinearLayout>
 
     <!--    Footer -->
     <TextView

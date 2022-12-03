@@ -8,6 +8,7 @@
     tools:context=".presentation.library.MylibraryActivity">
 
     <!--    Header -->
+
     <LinearLayout
         android:id="@+id/header"
         android:layout_width="match_parent"
@@ -17,399 +18,759 @@
         android:orientation="horizontal"
         app:layout_constraintTop_toTopOf="parent">
 
-        <ImageView
-            android:id="@+id/header_logo"
-            android:layout_width="45dp"
-            android:layout_height="45dp"
-            android:contentDescription="@string/TODO"
-            app:layout_constraintBottom_toBottomOf="@+id/main_header"
-            app:layout_constraintEnd_toEndOf="@+id/main_header"
-            app:layout_constraintStart_toStartOf="@+id/main_header"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.5"
-            app:srcCompat="@drawable/border_logo" />
-
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:background="@color/white"
+            android:gravity="center"
+            android:paddingTop="15dp"
+            android:text="@string/sentence_of_the_day"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="25sp"
+            android:textStyle="bold"
+            app:layout_constraintTop_toTopOf="parent" />
     </LinearLayout>
-
     <!--    Body -->
-    <LinearLayout
-        android:id="@+id/layout1"
-        android:layout_width="365dp"
-        android:layout_height="50dp"
-        android:background="@color/white"
-        android:backgroundTint="#FFFFFF"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toTopOf="@+id/footer"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/header"
-        app:layout_constraintVertical_bias="0">
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_margin="5dp"
-            android:layout_weight="1"
-            android:orientation="vertical"
-            android:paddingStart="5dp"
-            android:paddingEnd="5dp">
-
-            <TextView
-                android:id="@+id/sentence1"
-                android:layout_width="290dp"
-                android:layout_height="wrap_content"
-                android:text="@string/example_1"
-                android:textColor="@color/black"
-                android:textSize="15sp"
-                android:textStyle="bold" />
-        </LinearLayout>
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:layout_width="50dp"
-            android:layout_height="match_parent"
-            android:layout_gravity="center_vertical"
-            android:background="@drawable/btn_add_activate" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/layout2"
-        android:layout_width="365dp"
-        android:layout_height="50dp"
-        android:background="@color/white"
-        android:backgroundTint="#FFFFFF"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toTopOf="@+id/footer"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/header"
-        app:layout_constraintVertical_bias="0.1">
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_margin="5dp"
-            android:layout_weight="1"
-            android:orientation="vertical"
-            android:paddingStart="5dp"
-            android:paddingEnd="5dp">
-
-            <TextView
-                android:id="@+id/sentence2"
-                android:layout_width="290dp"
-                android:layout_height="wrap_content"
-                android:text="@string/example_2"
-                android:textColor="@color/black"
-                android:textSize="15sp"
-                android:textStyle="bold" />
-        </LinearLayout>
-        <androidx.appcompat.widget.AppCompatButton
-            android:layout_width="50dp"
-            android:layout_height="match_parent"
-            android:layout_gravity="center_vertical"
-            android:background="@drawable/btn_add_deactivate" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/layout3"
-        android:layout_width="365dp"
-        android:layout_height="50dp"
-        android:background="@color/white"
-        android:backgroundTint="#FFFFFF"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toTopOf="@+id/footer"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/header"
-        app:layout_constraintVertical_bias="0.2">
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_margin="5dp"
-            android:layout_weight="1"
-            android:orientation="vertical"
-            android:paddingStart="5dp"
-            android:paddingEnd="5dp">
-            <TextView
-                android:id="@+id/sentence3"
-                android:layout_width="290dp"
-                android:layout_height="wrap_content"
-                android:text="@string/example_3"
-                android:textColor="@color/black"
-                android:textSize="15sp"
-                android:textStyle="bold" />
-        </LinearLayout>
-        <androidx.appcompat.widget.AppCompatButton
-            android:layout_width="50dp"
-            android:layout_height="match_parent"
-            android:layout_gravity="center_vertical"
-            android:background="@drawable/btn_add_activate" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/layout4"
-        android:layout_width="365dp"
-        android:layout_height="50dp"
-        android:background="@color/white"
-        android:backgroundTint="#FFFFFF"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toTopOf="@+id/footer"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/header"
-        app:layout_constraintVertical_bias="0.3">
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_margin="5dp"
-            android:layout_weight="1"
-            android:orientation="vertical"
-            android:paddingStart="5dp"
-            android:paddingEnd="5dp">
-            <TextView
-                android:id="@+id/sentence4"
-                android:layout_width="290dp"
-                android:layout_height="wrap_content"
-                android:text="@string/example_4"
-                android:textColor="@color/black"
-                android:textSize="15sp"
-                android:textStyle="bold" />
-        </LinearLayout>
-        <androidx.appcompat.widget.AppCompatButton
-            android:layout_width="50dp"
-            android:layout_height="match_parent"
-            android:layout_gravity="center_vertical"
-            android:background="@drawable/btn_add_activate" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/layout5"
-        android:layout_width="365dp"
-        android:layout_height="50dp"
-        android:background="@color/white"
-        android:backgroundTint="#FFFFFF"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toTopOf="@+id/footer"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/header"
-        app:layout_constraintVertical_bias="0.4">
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_margin="5dp"
-            android:layout_weight="1"
-            android:orientation="vertical"
-            android:paddingStart="5dp"
-            android:paddingEnd="5dp">
-            <TextView
-                android:id="@+id/sentence5"
-                android:layout_width="290dp"
-                android:layout_height="wrap_content"
-                android:text="@string/example_5"
-                android:textColor="@color/black"
-                android:textSize="15sp"
-                android:textStyle="bold" />
-        </LinearLayout>
-        <androidx.appcompat.widget.AppCompatButton
-            android:layout_width="50dp"
-            android:layout_height="match_parent"
-            android:layout_gravity="center_vertical"
-            android:background="@drawable/btn_add_deactivate" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/layout6"
-        android:layout_width="365dp"
-        android:layout_height="50dp"
-        android:background="@color/white"
-        android:backgroundTint="#FFFFFF"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toTopOf="@+id/footer"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/header"
-        app:layout_constraintVertical_bias="0.5">
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_margin="5dp"
-            android:layout_weight="1"
-            android:orientation="vertical"
-            android:paddingStart="5dp"
-            android:paddingEnd="5dp">
-            <TextView
-                android:id="@+id/sentence6"
-                android:layout_width="290dp"
-                android:layout_height="wrap_content"
-                android:text="@string/example_6"
-                android:textColor="@color/black"
-                android:textSize="15sp"
-                android:textStyle="bold" />
-        </LinearLayout>
-        <androidx.appcompat.widget.AppCompatButton
-            android:layout_width="50dp"
-            android:layout_height="match_parent"
-            android:layout_gravity="center_vertical"
-            android:background="@drawable/btn_add_deactivate" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/layout7"
-        android:layout_width="365dp"
-        android:layout_height="50dp"
-        android:background="@color/white"
-        android:backgroundTint="#FFFFFF"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toTopOf="@+id/footer"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/header"
-        app:layout_constraintVertical_bias="0.6">
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_margin="5dp"
-            android:layout_weight="1"
-            android:orientation="vertical"
-            android:paddingStart="5dp"
-            android:paddingEnd="5dp">
-            <TextView
-                android:id="@+id/sentence7"
-                android:layout_width="290dp"
-                android:layout_height="wrap_content"
-                android:text="@string/example_7"
-                android:textColor="@color/black"
-                android:textSize="15sp"
-                android:textStyle="bold" />
-        </LinearLayout>
-        <androidx.appcompat.widget.AppCompatButton
-            android:layout_width="50dp"
-            android:layout_height="match_parent"
-            android:layout_gravity="center_vertical"
-            android:background="@drawable/btn_add_activate" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/layout8"
-        android:layout_width="365dp"
-        android:layout_height="50dp"
-        android:background="@color/white"
-        android:backgroundTint="#FFFFFF"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toTopOf="@+id/footer"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/header"
-        app:layout_constraintVertical_bias="0.7">
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_margin="5dp"
-            android:layout_weight="1"
-            android:orientation="vertical"
-            android:paddingStart="5dp"
-            android:paddingEnd="5dp">
-            <TextView
-                android:id="@+id/sentence8"
-                android:layout_width="290dp"
-                android:layout_height="wrap_content"
-                android:text="@string/example_8"
-                android:textColor="@color/black"
-                android:textSize="15sp"
-                android:textStyle="bold" />
-        </LinearLayout>
-        <androidx.appcompat.widget.AppCompatButton
-            android:layout_width="50dp"
-            android:layout_height="match_parent"
-            android:layout_gravity="center_vertical"
-            android:background="@drawable/btn_add_deactivate" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/layout9"
-        android:layout_width="365dp"
-        android:layout_height="50dp"
-        android:background="@color/white"
-        android:backgroundTint="#FFFFFF"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toTopOf="@+id/footer"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/header"
-        app:layout_constraintVertical_bias="0.8">
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_margin="5dp"
-            android:layout_weight="1"
-            android:orientation="vertical"
-            android:paddingStart="5dp"
-            android:paddingEnd="5dp">
-            <TextView
-                android:id="@+id/sentence9"
-                android:layout_width="290dp"
-                android:layout_height="wrap_content"
-                android:text="@string/example_9"
-                android:textColor="@color/black"
-                android:textSize="15sp"
-                android:textStyle="bold" />
-        </LinearLayout>
-        <androidx.appcompat.widget.AppCompatButton
-            android:layout_width="50dp"
-            android:layout_height="match_parent"
-            android:layout_gravity="center_vertical"
-            android:background="@drawable/btn_add_deactivate" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/layout10"
-        android:layout_width="365dp"
-        android:layout_height="50dp"
-        android:background="@color/white"
-        android:backgroundTint="#FFFFFF"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toTopOf="@+id/footer"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/header"
-        app:layout_constraintVertical_bias="0.9">
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_margin="5dp"
-            android:layout_weight="1"
-            android:orientation="vertical"
-            android:paddingStart="5dp"
-            android:paddingEnd="5dp">
-
-            <TextView
-                android:id="@+id/sentence10"
-                android:layout_width="290dp"
-                android:layout_height="wrap_content"
-                android:text="@string/example_10"
-                android:textColor="@color/black"
-                android:textSize="15sp"
-                android:textStyle="bold" />
-        </LinearLayout>
-        <androidx.appcompat.widget.AppCompatButton
-            android:layout_width="50dp"
-            android:layout_height="match_parent"
-            android:layout_gravity="center_vertical"
-            android:background="@drawable/btn_add_activate" />
-    </LinearLayout>
 
 
     <!--    Footer -->
+    <!--        <LinearLayout-->
+    <!--            android:layout_width="0dp"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:layout_gravity="center_vertical"-->
+    <!--            android:layout_margin="5dp"-->
+    <!--            android:layout_weight="1"-->
+    <!--            android:orientation="vertical"-->
+    <!--            android:paddingStart="5dp"-->
+    <!--            android:paddingEnd="5dp">-->
+
+    <!--            <TextView-->
+    <!--                android:id="@+id/correct3"-->
+    <!--                android:layout_width="290dp"-->
+    <!--                android:layout_height="wrap_content"-->
+    <!--                android:text="@string/example_3"-->
+    <!--                android:textColor="@color/black"-->
+    <!--                android:textSize="15sp"-->
+    <!--                android:textStyle="bold" />-->
+    <!--        </LinearLayout>-->
+
+    <!--        <androidx.appcompat.widget.AppCompatButton-->
+    <!--            android:layout_width="50dp"-->
+    <!--            android:layout_height="match_parent"-->
+    <!--            android:layout_gravity="center_vertical"-->
+    <!--            android:background="@drawable/btn_add_activate" />-->
+
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="70dp"
+        android:layout_marginBottom="70dp"
+        app:layout_constraintBottom_toTopOf="@+id/footer"
+        app:layout_constraintTop_toBottomOf="@+id/header"
+        android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/layoutWrong"
+                android:layout_width="375dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:background="@color/background_color"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/imageWrong"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="3dp"
+                    android:paddingTop="7dp"
+                    android:paddingEnd="3dp"
+                    android:src="@drawable/ic_wrong" />
+
+                <LinearLayout
+                    android:id="@+id/wrong1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:background="@color/background_color"
+                    android:orientation="horizontal"
+                    android:paddingStart="5dp"
+                    android:paddingTop="5dp"
+                    android:paddingEnd="5dp">
+
+                    <TextView
+                        android:id="@+id/wrong1_txt"
+                        android:layout_width="320dp"
+                        android:layout_height="45dp"
+                        android:background="@color/white"
+                        android:gravity="center|start"
+                        android:paddingStart="5dp"
+                        android:paddingEnd="5dp"
+                        android:text="@string/example_1"
+                        android:textColor="@color/black"
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/wrong1_btn"
+                        android:layout_width="45dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center_vertical"
+                        android:background="@drawable/btn_add_activate" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/wrong2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:background="@color/background_color"
+                    android:orientation="horizontal"
+                    android:paddingStart="5dp"
+                    android:paddingTop="5dp"
+                    android:paddingEnd="5dp">
+
+                    <TextView
+                        android:id="@+id/wrong2_txt"
+                        android:layout_width="320dp"
+                        android:layout_height="45dp"
+                        android:background="@color/white"
+                        android:gravity="center|start"
+                        android:paddingStart="5dp"
+                        android:paddingEnd="5dp"
+                        android:text="@string/example_2"
+                        android:textColor="@color/black"
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/wrong2_btn"
+                        android:layout_width="45dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center_vertical"
+                        android:background="@drawable/btn_add_activate" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/wrong3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:background="@color/background_color"
+                    android:orientation="horizontal"
+                    android:paddingStart="5dp"
+                    android:paddingTop="5dp"
+                    android:paddingEnd="5dp">
+
+                    <TextView
+                        android:id="@+id/wrong3_txt"
+                        android:layout_width="320dp"
+                        android:layout_height="45dp"
+                        android:background="@color/white"
+                        android:gravity="center|start"
+                        android:paddingStart="5dp"
+                        android:paddingEnd="5dp"
+                        android:text="@string/example_3"
+                        android:textColor="@color/black"
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/wrong3_btn"
+                        android:layout_width="45dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center_vertical"
+                        android:background="@drawable/btn_add_activate" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/wrong4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:background="@color/background_color"
+                    android:orientation="horizontal"
+                    android:paddingStart="5dp"
+                    android:paddingTop="5dp"
+                    android:paddingEnd="5dp">
+
+                    <TextView
+                        android:id="@+id/wrong4_txt"
+                        android:layout_width="320dp"
+                        android:layout_height="45dp"
+                        android:background="@color/white"
+                        android:gravity="center|start"
+                        android:paddingStart="5dp"
+                        android:paddingEnd="5dp"
+                        android:text="@string/example_4"
+                        android:textColor="@color/black"
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/wrong4_btn"
+                        android:layout_width="45dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center_vertical"
+                        android:background="@drawable/btn_add_activate" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/wrong5"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:background="@color/background_color"
+                    android:orientation="horizontal"
+                    android:paddingStart="5dp"
+                    android:paddingTop="5dp"
+                    android:paddingEnd="5dp">
+
+                    <TextView
+                        android:id="@+id/wrong5_txt"
+                        android:layout_width="320dp"
+                        android:layout_height="45dp"
+                        android:background="@color/white"
+                        android:gravity="center|start"
+                        android:paddingStart="5dp"
+                        android:paddingEnd="5dp"
+                        android:text="@string/example_5"
+                        android:textColor="@color/black"
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/wrong5_btn"
+                        android:layout_width="45dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center_vertical"
+                        android:background="@drawable/btn_add_activate" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/wrong6"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:background="@color/background_color"
+                    android:orientation="horizontal"
+                    android:paddingStart="5dp"
+                    android:paddingTop="5dp"
+                    android:paddingEnd="5dp">
+
+<!--                    <TextView-->
+<!--                        android:id="@+id/wrong6_txt"-->
+<!--                        android:layout_width="320dp"-->
+<!--                        android:layout_height="45dp"-->
+<!--                        android:background="@color/white"-->
+<!--                        android:gravity="center|start"-->
+<!--                        android:paddingStart="5dp"-->
+<!--                        android:paddingEnd="5dp"-->
+<!--                        android:text="@string/example_6"-->
+<!--                        android:textColor="@color/black"-->
+<!--                        android:textSize="15sp"-->
+<!--                        android:textStyle="bold" />-->
+
+<!--                    <androidx.appcompat.widget.AppCompatButton-->
+<!--                        android:id="@+id/wrong6_btn"-->
+<!--                        android:layout_width="45dp"-->
+<!--                        android:layout_height="match_parent"-->
+<!--                        android:layout_gravity="center_vertical"-->
+<!--                        android:background="@drawable/btn_add_activate" />-->
+<!--                </LinearLayout>-->
+
+<!--                <LinearLayout-->
+<!--                    android:id="@+id/wrong7"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_gravity="center_vertical"-->
+<!--                    android:layout_weight="1"-->
+<!--                    android:background="@color/background_color"-->
+<!--                    android:orientation="horizontal"-->
+<!--                    android:paddingStart="5dp"-->
+<!--                    android:paddingTop="5dp"-->
+<!--                    android:paddingEnd="5dp">-->
+
+<!--                    <TextView-->
+<!--                        android:id="@+id/wrong7_txt"-->
+<!--                        android:layout_width="320dp"-->
+<!--                        android:layout_height="45dp"-->
+<!--                        android:background="@color/white"-->
+<!--                        android:gravity="center|start"-->
+<!--                        android:paddingStart="5dp"-->
+<!--                        android:paddingEnd="5dp"-->
+<!--                        android:text="@string/example_7"-->
+<!--                        android:textColor="@color/black"-->
+<!--                        android:textSize="15sp"-->
+<!--                        android:textStyle="bold" />-->
+
+<!--                    <androidx.appcompat.widget.AppCompatButton-->
+<!--                        android:id="@+id/wrong7_btn"-->
+<!--                        android:layout_width="45dp"-->
+<!--                        android:layout_height="match_parent"-->
+<!--                        android:layout_gravity="center_vertical"-->
+<!--                        android:background="@drawable/btn_add_activate" />-->
+<!--                </LinearLayout>-->
+
+<!--                <LinearLayout-->
+<!--                    android:id="@+id/wrong8"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_gravity="center_vertical"-->
+<!--                    android:layout_weight="1"-->
+<!--                    android:background="@color/background_color"-->
+<!--                    android:orientation="horizontal"-->
+<!--                    android:paddingStart="5dp"-->
+<!--                    android:paddingTop="5dp"-->
+<!--                    android:paddingEnd="5dp">-->
+
+<!--                    <TextView-->
+<!--                        android:id="@+id/wrong8_txt"-->
+<!--                        android:layout_width="320dp"-->
+<!--                        android:layout_height="45dp"-->
+<!--                        android:background="@color/white"-->
+<!--                        android:gravity="center|start"-->
+<!--                        android:paddingStart="5dp"-->
+<!--                        android:paddingEnd="5dp"-->
+<!--                        android:text="@string/example_8"-->
+<!--                        android:textColor="@color/black"-->
+<!--                        android:textSize="15sp"-->
+<!--                        android:textStyle="bold" />-->
+
+<!--                    <androidx.appcompat.widget.AppCompatButton-->
+<!--                        android:id="@+id/wrong8_btn"-->
+<!--                        android:layout_width="45dp"-->
+<!--                        android:layout_height="match_parent"-->
+<!--                        android:layout_gravity="center_vertical"-->
+<!--                        android:background="@drawable/btn_add_activate" />-->
+<!--                </LinearLayout>-->
+
+<!--                <LinearLayout-->
+<!--                    android:id="@+id/wrong9"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_gravity="center_vertical"-->
+<!--                    android:layout_weight="1"-->
+<!--                    android:background="@color/background_color"-->
+<!--                    android:orientation="horizontal"-->
+<!--                    android:paddingStart="5dp"-->
+<!--                    android:paddingTop="5dp"-->
+<!--                    android:paddingEnd="5dp">-->
+
+<!--                    <TextView-->
+<!--                        android:id="@+id/wrong9_txt"-->
+<!--                        android:layout_width="320dp"-->
+<!--                        android:layout_height="45dp"-->
+<!--                        android:background="@color/white"-->
+<!--                        android:gravity="center|start"-->
+<!--                        android:paddingStart="5dp"-->
+<!--                        android:paddingEnd="5dp"-->
+<!--                        android:text="@string/example_9"-->
+<!--                        android:textColor="@color/black"-->
+<!--                        android:textSize="15sp"-->
+<!--                        android:textStyle="bold" />-->
+
+<!--                    <androidx.appcompat.widget.AppCompatButton-->
+<!--                        android:id="@+id/wrong9_btn"-->
+<!--                        android:layout_width="45dp"-->
+<!--                        android:layout_height="match_parent"-->
+<!--                        android:layout_gravity="center_vertical"-->
+<!--                        android:background="@drawable/btn_add_activate" />-->
+<!--                </LinearLayout>-->
+
+<!--                <LinearLayout-->
+<!--                    android:id="@+id/wrong10"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_gravity="center_vertical"-->
+<!--                    android:layout_weight="1"-->
+<!--                    android:background="@color/background_color"-->
+<!--                    android:orientation="horizontal"-->
+<!--                    android:paddingStart="5dp"-->
+<!--                    android:paddingTop="5dp"-->
+<!--                    android:paddingEnd="5dp">-->
+
+<!--                    <TextView-->
+<!--                        android:id="@+id/wrong10_txt"-->
+<!--                        android:layout_width="320dp"-->
+<!--                        android:layout_height="45dp"-->
+<!--                        android:background="@color/white"-->
+<!--                        android:gravity="center|start"-->
+<!--                        android:paddingStart="5dp"-->
+<!--                        android:paddingEnd="5dp"-->
+<!--                        android:text="@string/example_10"-->
+<!--                        android:textColor="@color/black"-->
+<!--                        android:textSize="15sp"-->
+<!--                        android:textStyle="bold" />-->
+
+<!--                    <androidx.appcompat.widget.AppCompatButton-->
+<!--                        android:id="@+id/wrong10_btn"-->
+<!--                        android:layout_width="45dp"-->
+<!--                        android:layout_height="match_parent"-->
+<!--                        android:layout_gravity="center_vertical"-->
+<!--                        android:background="@drawable/btn_add_activate" />-->
+                </LinearLayout>
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/layoutCorrect"
+                android:layout_width="375dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:background="@color/background_color"
+                android:orientation="vertical"
+                android:paddingBottom="10dp">
+
+                <ImageView
+                    android:id="@+id/imageCorrect"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="3dp"
+                    android:paddingTop="7dp"
+                    android:paddingEnd="3dp"
+                    android:src="@drawable/ic_correct" />
+
+                <LinearLayout
+                    android:id="@+id/correct1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:background="@color/background_color"
+                    android:orientation="horizontal"
+                    android:paddingStart="5dp"
+                    android:paddingTop="7dp"
+                    android:paddingEnd="5dp">
+
+                    <TextView
+                        android:id="@+id/correct1_txt"
+                        android:layout_width="320dp"
+                        android:layout_height="45dp"
+                        android:background="@color/white"
+                        android:gravity="center|start"
+                        android:paddingStart="5dp"
+                        android:paddingEnd="5dp"
+                        android:text="@string/example_1"
+                        android:textColor="@color/black"
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/correct1_btn"
+                        android:layout_width="45dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center_vertical"
+                        android:background="@drawable/btn_add_activate" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/correct2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:background="@color/background_color"
+                    android:orientation="horizontal"
+                    android:paddingStart="5dp"
+                    android:paddingTop="5dp"
+                    android:paddingEnd="5dp">
+
+                    <TextView
+                        android:id="@+id/correct2_txt"
+                        android:layout_width="320dp"
+                        android:layout_height="45dp"
+                        android:background="@color/white"
+                        android:gravity="center|start"
+                        android:paddingStart="5dp"
+                        android:paddingEnd="5dp"
+                        android:text="@string/example_2"
+                        android:textColor="@color/black"
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/correct2_btn"
+                        android:layout_width="45dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center_vertical"
+                        android:background="@drawable/btn_add_activate" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/correct3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:background="@color/background_color"
+                    android:orientation="horizontal"
+                    android:paddingStart="5dp"
+                    android:paddingTop="5dp"
+                    android:paddingEnd="5dp">
+
+                    <TextView
+                        android:id="@+id/correct3_txt"
+                        android:layout_width="320dp"
+                        android:layout_height="45dp"
+                        android:background="@color/white"
+                        android:gravity="center|start"
+                        android:paddingStart="5dp"
+                        android:paddingEnd="5dp"
+                        android:text="@string/example_3"
+                        android:textColor="@color/black"
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/correct3_btn"
+                        android:layout_width="45dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center_vertical"
+                        android:background="@drawable/btn_add_activate" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/correct4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:background="@color/background_color"
+                    android:orientation="horizontal"
+                    android:paddingStart="5dp"
+                    android:paddingTop="5dp"
+                    android:paddingEnd="5dp">
+
+                    <TextView
+                        android:id="@+id/correct4_txt"
+                        android:layout_width="320dp"
+                        android:layout_height="45dp"
+                        android:background="@color/white"
+                        android:gravity="center|start"
+                        android:paddingStart="5dp"
+                        android:paddingEnd="5dp"
+                        android:text="@string/example_4"
+                        android:textColor="@color/black"
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/correct4_btn"
+                        android:layout_width="45dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center_vertical"
+                        android:background="@drawable/btn_add_activate" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/correct5"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:background="@color/background_color"
+                    android:orientation="horizontal"
+                    android:paddingStart="5dp"
+                    android:paddingTop="5dp"
+                    android:paddingEnd="5dp">
+
+                    <TextView
+                        android:id="@+id/correct5_txt"
+                        android:layout_width="320dp"
+                        android:layout_height="45dp"
+                        android:background="@color/white"
+                        android:gravity="center|start"
+                        android:paddingStart="5dp"
+                        android:paddingEnd="5dp"
+                        android:text="@string/example_5"
+                        android:textColor="@color/black"
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/correct5_btn"
+                        android:layout_width="45dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center_vertical"
+                        android:background="@drawable/btn_add_activate" />
+                </LinearLayout>
+
+<!--                <LinearLayout-->
+<!--                    android:id="@+id/correct6"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_gravity="center_vertical"-->
+<!--                    android:layout_weight="1"-->
+<!--                    android:background="@color/background_color"-->
+<!--                    android:orientation="horizontal"-->
+<!--                    android:paddingStart="5dp"-->
+<!--                    android:paddingTop="5dp"-->
+<!--                    android:paddingEnd="5dp">-->
+
+<!--                    <TextView-->
+<!--                        android:id="@+id/correct6_txt"-->
+<!--                        android:layout_width="320dp"-->
+<!--                        android:layout_height="45dp"-->
+<!--                        android:background="@color/white"-->
+<!--                        android:gravity="center|start"-->
+<!--                        android:paddingStart="5dp"-->
+<!--                        android:paddingEnd="5dp"-->
+<!--                        android:text="@string/example_6"-->
+<!--                        android:textColor="@color/black"-->
+<!--                        android:textSize="15sp"-->
+<!--                        android:textStyle="bold" />-->
+
+<!--                    <androidx.appcompat.widget.AppCompatButton-->
+<!--                        android:id="@+id/correct6_btn"-->
+<!--                        android:layout_width="45dp"-->
+<!--                        android:layout_height="match_parent"-->
+<!--                        android:layout_gravity="center_vertical"-->
+<!--                        android:background="@drawable/btn_add_activate" />-->
+<!--                </LinearLayout>-->
+
+<!--                <LinearLayout-->
+<!--                    android:id="@+id/correct7"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_gravity="center_vertical"-->
+<!--                    android:layout_weight="1"-->
+<!--                    android:background="@color/background_color"-->
+<!--                    android:orientation="horizontal"-->
+<!--                    android:paddingStart="5dp"-->
+<!--                    android:paddingTop="7dp"-->
+<!--                    android:paddingEnd="5dp">-->
+
+<!--                    <TextView-->
+<!--                        android:id="@+id/correct7_txt"-->
+<!--                        android:layout_width="320dp"-->
+<!--                        android:layout_height="45dp"-->
+<!--                        android:background="@color/white"-->
+<!--                        android:gravity="center|start"-->
+<!--                        android:paddingStart="5dp"-->
+<!--                        android:paddingEnd="5dp"-->
+<!--                        android:text="@string/example_7"-->
+<!--                        android:textColor="@color/black"-->
+<!--                        android:textSize="15sp"-->
+<!--                        android:textStyle="bold" />-->
+
+<!--                    <androidx.appcompat.widget.AppCompatButton-->
+<!--                        android:id="@+id/correct7_btn"-->
+<!--                        android:layout_width="45dp"-->
+<!--                        android:layout_height="match_parent"-->
+<!--                        android:layout_gravity="center_vertical"-->
+<!--                        android:background="@drawable/btn_add_activate" />-->
+<!--                </LinearLayout>-->
+
+<!--                <LinearLayout-->
+<!--                    android:id="@+id/correct8"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_gravity="center_vertical"-->
+<!--                    android:layout_weight="1"-->
+<!--                    android:background="@color/background_color"-->
+<!--                    android:orientation="horizontal"-->
+<!--                    android:paddingStart="5dp"-->
+<!--                    android:paddingTop="5dp"-->
+<!--                    android:paddingEnd="5dp">-->
+
+<!--                    <TextView-->
+<!--                        android:id="@+id/correct8_txt"-->
+<!--                        android:layout_width="320dp"-->
+<!--                        android:layout_height="45dp"-->
+<!--                        android:background="@color/white"-->
+<!--                        android:gravity="center|start"-->
+<!--                        android:paddingStart="5dp"-->
+<!--                        android:paddingEnd="5dp"-->
+<!--                        android:text="@string/example_8"-->
+<!--                        android:textColor="@color/black"-->
+<!--                        android:textSize="15sp"-->
+<!--                        android:textStyle="bold" />-->
+
+<!--                    <androidx.appcompat.widget.AppCompatButton-->
+<!--                        android:id="@+id/correct8_btn"-->
+<!--                        android:layout_width="45dp"-->
+<!--                        android:layout_height="match_parent"-->
+<!--                        android:layout_gravity="center_vertical"-->
+<!--                        android:background="@drawable/btn_add_activate" />-->
+<!--                </LinearLayout>-->
+
+<!--                <LinearLayout-->
+<!--                    android:id="@+id/correct9"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_gravity="center_vertical"-->
+<!--                    android:layout_weight="1"-->
+<!--                    android:background="@color/background_color"-->
+<!--                    android:orientation="horizontal"-->
+<!--                    android:paddingStart="5dp"-->
+<!--                    android:paddingTop="5dp"-->
+<!--                    android:paddingEnd="5dp">-->
+
+<!--                    <TextView-->
+<!--                        android:id="@+id/correct9_txt"-->
+<!--                        android:layout_width="320dp"-->
+<!--                        android:layout_height="45dp"-->
+<!--                        android:background="@color/white"-->
+<!--                        android:gravity="center|start"-->
+<!--                        android:paddingStart="5dp"-->
+<!--                        android:paddingEnd="5dp"-->
+<!--                        android:text="@string/example_9"-->
+<!--                        android:textColor="@color/black"-->
+<!--                        android:textSize="15sp"-->
+<!--                        android:textStyle="bold" />-->
+
+<!--                    <androidx.appcompat.widget.AppCompatButton-->
+<!--                        android:id="@+id/correct9_btn"-->
+<!--                        android:layout_width="45dp"-->
+<!--                        android:layout_height="match_parent"-->
+<!--                        android:layout_gravity="center_vertical"-->
+<!--                        android:background="@drawable/btn_add_activate" />-->
+<!--                </LinearLayout>-->
+
+<!--                <LinearLayout-->
+<!--                    android:id="@+id/correct10"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_gravity="center_vertical"-->
+<!--                    android:layout_weight="1"-->
+<!--                    android:background="@color/background_color"-->
+<!--                    android:orientation="horizontal"-->
+<!--                    android:padding ="5dp">-->
+
+<!--                    <TextView-->
+<!--                        android:id="@+id/correct10_txt"-->
+<!--                        android:layout_width="320dp"-->
+<!--                        android:layout_height="45dp"-->
+<!--                        android:background="@color/white"-->
+<!--                        android:gravity="center|start"-->
+<!--                        android:paddingStart="5dp"-->
+<!--                        android:paddingEnd="5dp"-->
+<!--                        android:text="@string/example_10"-->
+<!--                        android:textColor="@color/black"-->
+<!--                        android:textSize="15sp"-->
+<!--                        android:textStyle="bold" />-->
+
+<!--                    <androidx.appcompat.widget.AppCompatButton-->
+<!--                        android:id="@+id/correct10_btn"-->
+<!--                        android:layout_width="45dp"-->
+<!--                        android:layout_height="match_parent"-->
+<!--                        android:layout_gravity="center_vertical"-->
+<!--                        android:background="@drawable/btn_add_activate" />-->
+<!--                </LinearLayout>-->
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
     <LinearLayout
         android:id="@+id/footer"
         android:layout_width="match_parent"

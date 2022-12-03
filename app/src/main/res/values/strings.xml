@@ -37,4 +37,5 @@
     <string name="facebook_client_token">56789</string>
     <string name="SignUp">회원가입</string>
     <string name="Login">로그인</string>
+    <string name="sentence_of_the_day">Sentence of the day</string>
 </resources>

@@ -1,5 +1,6 @@
 package com.example.aop.part2.mask.presentation.mypage
 
+import android.annotation.SuppressLint
 import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
@@ -16,25 +17,48 @@ import com.google.firebase.auth.FirebaseAuth
 
 class MypageActivity: AppCompatActivity() {
     private val auth: FirebaseAuth = FirebaseAuth.getInstance()
-    private val name = "김가면"
-    private val email = "mask@sogang.ac.kr"
-    private val attendance = 13
+    private var name : String = "김가면"
+    private var email : String = "mask@sogang.ac.kr"
+    private var token : String = "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJtYXNrQHNvZ2FuZy5hYy5rciIsImV4cCI6MTY3Nzc1OTUxMX0.qtE8MVzm6LBBOp7QDco6LYgCTKX436NEhqfdlvNBRmDikuKr92TrgS_FD8Uui4hMYQtXa_qOQDtureeD_K-afA"
+    private var attendance : Int = 1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_mypage)
+        initVariables()
+        bindViews()
+    }
 
-        val nameView: TextView = findViewById(R.id.mypage_name)
+    private fun initVariables(){
+        if(intent.hasExtra("name")) {
+            name = intent.getStringExtra("name").toString()
+        }
+        if(intent.hasExtra("email")) {
+            email = intent.getStringExtra("email").toString()
+        }
+        if(intent.hasExtra("attendance")) {
+            attendance = intent.getIntExtra("attendance", 0)
+        }
+        if(intent.hasExtra("token")) {
+            token = intent.getStringExtra("token").toString()
+        }
+    }
+
+    @SuppressLint("SetTextI18n")
+    private fun bindViews(){
+//        val nameView: TextView = findViewById(R.id.mypage_name)
         val emailView: TextView = findViewById(R.id.mypage_email)
-        val attendanceView: TextView = findViewById(R.id.mypage_attendance)
+//        val attendanceView: TextView = findViewById(R.id.mypage_attendance)
 
-        nameView.setText(name)
+//        nameView.setText(name)
         emailView.setText(email)
-        attendanceView.setText("출석 : $attendance 일차")
+//        attendanceView.setText("출석 : $attendance 일차")
 
         val MyLibrary = findViewById<AppCompatButton>(R.id.btnMylibrary)
         MyLibrary.setOnClickListener {
             val intent = Intent(this, MylibraryActivity::class.java) //
+            intent.putExtra("token", token )
+            intent.putExtra("email", email)
             startActivity(intent)
             finish()
         }

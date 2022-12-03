@@ -3,6 +3,7 @@ package com.example.aop.part2.mask.domain.request
 import com.example.aop.part2.mask.domain.dto.FavoriteDto
 import com.example.aop.part2.mask.domain.dto.LoginDto
 import com.example.aop.part2.mask.domain.dto.LogoutDto
+import com.example.aop.part2.mask.domain.dto.GradeDto
 import com.example.aop.part2.mask.domain.response.CommonResponse
 import com.example.aop.part2.mask.domain.response.result.*
 import okhttp3.MultipartBody
@@ -23,43 +24,34 @@ interface API {
     fun requestLevelAchievement (
         @Path("email") email: String,
         @Header("Authorization") token : String
+        // ##################
+        // TODO main page 하단
+        // ##################
     ) : Call<CommonResponse<LevelAchievementResult>>
 
+    // #### RESULT ####
+    // 즐겨찾기 추가 요청
+    @POST("/api/user/{email}/fav/{level}")
+    fun requestAddFavorite(
+        @Path("email") email: String,
+        @Path("level") level: Int,
+        @Header("Authorization") token : String,
+        @Body favoriteDto: FavoriteDto
+    ) : Call<CommonResponse<Any>>
+
+    // #### MY LIBRARY ####
     // 즐겨찾기 페이지(정보) 요청
     @GET("/api/user/{email}/fav")
     fun requestFavorite(
         @Path("email") email: String,
         @Header("Authorization") token : String
     ) : Call<CommonResponse<FavoriteResult>>
-
-    // 테스트 페이지(정보) 요청
-    @GET("/api/user/{email}/test/{level}")
-    fun requestTest(
-        @Path("email") email: String,
-        @Path("level") level: String?,
-        @Header("Authorization") token: String
-    ) : Call<CommonResponse<TestResult>>
-
-    // ##################
-    // TODO main page 하단
-    // ##################
-
-    // #### RESULT ####
-    // 즐겨찾기 추가 요청
-    @POST("/api/user/{email}/fav")
-    fun requestAddFavorite(
-        @Path("email") email: String,
-        @Header("Authorization") token : String,
-        @Body favoriteDto: FavoriteDto
-    ) : Call<CommonResponse<Any>>
-
-    // #### MY LIBRARY ####
     // 즐겨찾기 제거 요청
-    @DELETE("/api/user/{email}/fav")
+    @DELETE("/api/user/{email}/fav/{index}")
     fun requestDeleteFavorite(
         @Path("email") email: String,
-        @Header("Authorization") token : String,
-        @Body favoriteDto: FavoriteDto
+        @Path("index") index: Int,
+        @Header("Authorization") token : String
     ) : Call<CommonResponse<Any>>
 
     // #### MY PAGE ####
@@ -71,12 +63,20 @@ interface API {
     ) : Call<CommonResponse<Any>>
 
     // #### TEST ####
+    // 테스트 페이지(정보) 요청
+    @GET("/api/user/{email}/test/{level}")
+    fun requestTest(
+        @Path("email") email: String,
+        @Path("level") level: Int,
+        @Header("Authorization") token: String
+    ) : Call<CommonResponse<TestResult>>
     // 채점 요청
     @Multipart
     @POST("/api/problem/grade")
     fun requestGrade(
         @Header("Authorization") token : String,
-        @Part record : MultipartBody.Part
-        // @Body recordDto : RecordDto
+        @Part record : MultipartBody.Part,
+        @Part ("answer") answer : String
+//        @Part ("answer") answer : GradeDto
     ) : Call<CommonResponse<GradeResult>>
 }

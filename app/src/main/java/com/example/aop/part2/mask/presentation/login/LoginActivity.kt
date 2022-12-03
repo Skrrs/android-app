@@ -14,6 +14,8 @@ import com.example.aop.part2.mask.domain.dto.LoginDto
 import com.example.aop.part2.mask.domain.request.API
 import com.example.aop.part2.mask.domain.response.CommonResponse
 import com.example.aop.part2.mask.domain.response.result.LoginResult
+import com.example.aop.part2.mask.presentation.main.MainActivity
+import com.example.aop.part2.mask.presentation.mypage.MypageActivity
 import com.example.aop.part2.mask.presentation.signup.SignupActivity
 import com.example.aop.part2.mask.utils.api.RetrofitClass
 import com.google.firebase.auth.FirebaseAuth
@@ -36,6 +38,7 @@ class LoginActivity : AppCompatActivity() {
     // DB
     private val auth: FirebaseAuth = FirebaseAuth.getInstance()
     private val database = Firebase.database
+    private var token:String = ""
 //    private lateinit var userDB: DatabaseReference
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -118,7 +121,8 @@ class LoginActivity : AppCompatActivity() {
         val email: String = auth.currentUser?.email.orEmpty()
 
         callLogin(email)
-
+        val intent = Intent(this, MainActivity::class.java) //
+        startActivity(intent)
         finish()
     }
 
@@ -136,7 +140,7 @@ class LoginActivity : AppCompatActivity() {
             override fun onResponse(call: Call<CommonResponse<LoginResult>>, response: Response<CommonResponse<LoginResult>>) {
                 if (response.isSuccessful) {
                     Log.d("login Success", response.code().toString())
-                    var token = response.body()?.result?.token ?: String()
+                    token = response.body()?.result?.token ?: String()
                     Log.d("MessageToken : ",token)
                     val tokenReference = database.getReference("token")
                     tokenReference.setValue(token)

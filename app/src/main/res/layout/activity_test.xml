@@ -35,22 +35,23 @@
     <TextView
         android:id="@+id/textView"
         android:layout_width="match_parent"
-        android:layout_height="250dp"
+        android:layout_height="300dp"
         android:background="@color/white"
         android:gravity="center"
-        android:lineSpacingExtra="8sp"
+        android:lineSpacingExtra="5sp"
+        android:paddingTop="30dp"
         android:padding="25dp"
         android:textAllCaps="false"
         android:textAppearance="@style/TextAppearance.AppCompat.Display1"
         android:textColor="@color/black"
-        android:textSize="20sp"
+        android:textSize="17sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/footer"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/header"
-        app:layout_constraintVertical_bias="0.67" />
+        app:layout_constraintVertical_bias="0.5" />
     <TextView
         android:id="@+id/pronView"
         android:layout_width="match_parent"
@@ -61,13 +62,13 @@
         android:textAllCaps="false"
         android:textAppearance="@style/TextAppearance.AppCompat.Display1"
         android:textColor="@color/dark_grey"
-        android:textSize="15sp"
+        android:textSize="12sp"
         android:textStyle="italic"
         app:layout_constraintBottom_toTopOf="@+id/pageView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/textView"
-        app:layout_constraintVertical_bias="0.8" />
+        app:layout_constraintVertical_bias="0.7" />
     <TextView
         android:id="@+id/englishView"
         android:layout_width="match_parent"
@@ -79,12 +80,12 @@
         android:textAllCaps="false"
         android:textAppearance="@style/TextAppearance.AppCompat.Display1"
         android:textColor="@color/dark_grey"
-        android:textSize="15sp"
+        android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="@+id/textView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/textView"
-        app:layout_constraintVertical_bias="0.95" />
+        app:layout_constraintVertical_bias="0.85" />
 
     <TextView
         android:id="@+id/pageView"
@@ -109,14 +110,24 @@
         android:layout_height="40dp"
         android:layout_marginEnd="10dp"
         android:background="@drawable/ic_emptystar"
-        app:layout_constraintBottom_toTopOf="@+id/textView"
+        app:layout_constraintBottom_toBottomOf="@+id/pronView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/header"
-        app:layout_constraintVertical_bias="0.85" />
-
+        app:layout_constraintTop_toTopOf="@+id/textView"
+        app:layout_constraintVertical_bias="0.05" />
 
 
     <!--    Footer -->
+    <androidx.appcompat.widget.AppCompatButton
+        android:layout_marginStart="10dp"
+        android:id="@+id/btnReplay"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:background="@drawable/ic_play"
+        app:layout_constraintBottom_toBottomOf="@+id/textView"
+        app:layout_constraintStart_toStartOf="@+id/englishView"
+        app:layout_constraintTop_toTopOf="@+id/englishView"
+        app:layout_constraintVertical_bias="0.95" />
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/footer"
         android:layout_width="match_parent"
@@ -141,7 +152,7 @@
             android:id="@+id/confirmButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Confirm"
+            android:text="Grade !"
             app:layout_constraintBottom_toBottomOf="@+id/recordButton"
             app:layout_constraintEnd_toStartOf="@+id/recordButton"
             app:layout_constraintHorizontal_bias="0.7"
