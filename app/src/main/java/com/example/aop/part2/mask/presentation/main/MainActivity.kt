@@ -131,10 +131,12 @@ class MainActivity : AppCompatActivity() {
                     }
                     msg = response.body()?.message.toString()
                 } else{
+                    toastMsg(response.toString())
                     Log.d(" Main Request: Code 400 Error", response.toString())
                 }
             }
             override fun onFailure(call: Call<CommonResponse<LevelAchievementResult>>, t: Throwable) {
+                toastMsg(t.toString())
                 Log.d("Main Request : Code 500 Error", t.toString())
             }
         })

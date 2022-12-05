@@ -95,6 +95,7 @@ class MylibraryActivity : AppCompatActivity() {
                     Log.d("Favorite Delete Success", response.code().toString())
 
                 } else{
+                    toastMsg(response.toString())
                     Log.d("Favorite Delete : Code 400 Error", response.toString())
                 }
             }
@@ -131,6 +132,7 @@ class MylibraryActivity : AppCompatActivity() {
                     adapter.submitList(favoriteItems)
 //                    val msg = response.body()?.message
                 } else {
+                    toastMsg(response.toString())
                     Log.d("Get Favorites : Code 400 Error", response.toString())
                 }
             }

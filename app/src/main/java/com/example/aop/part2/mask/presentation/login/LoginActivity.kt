@@ -145,6 +145,7 @@ class LoginActivity : AppCompatActivity() {
                     val tokenReference = database.getReference("token")
                     tokenReference.setValue(token)
                 } else{
+                    toastMsg(response.toString())
                     Log.d("login : Code 400 Error", response.toString())
                 }
             }
@@ -152,6 +153,13 @@ class LoginActivity : AppCompatActivity() {
                 Log.d("Login : Code 500 Error", t.toString())
             }
         })
+    }
+    private fun toastMsg(msg: String) {
+        Toast.makeText(
+            this,
+            msg,
+            Toast.LENGTH_SHORT
+        ).show()
     }
 
     private fun getCurrentUserID(): String {

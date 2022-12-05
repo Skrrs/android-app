@@ -106,6 +106,7 @@ class TestActivity : AppCompatActivity() {
     private var problem: ArrayList<Int>? = arrayListOf()
     private var correct: ArrayList<Int>? = arrayListOf()
     private var wrong: ArrayList<Int>? = arrayListOf()
+    private var isSolved : Boolean = false
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -217,6 +218,11 @@ class TestActivity : AppCompatActivity() {
             recordTimeTextView.clearCountTime()
             mediaPlayer!!.release()
             mediaPlayer = null
+            if (!isSolved){
+                wrong?.add(currentIndex)
+                problem?.add(currentIndex)
+            }
+            isSolved = false
             i++
             if (i < 5) {
                 starActivation = false
@@ -255,11 +261,10 @@ class TestActivity : AppCompatActivity() {
         confirmButton.setOnClickListener {
             stopPlaying()
             state = State.BEFORE_RECORDING
-
+            isSolved = true
             if (recordFile != null) {
                 val requestFile = RequestBody.create(MediaType.parse("audio/wav"), recordFile)
                 val record = MultipartBody.Part.createFormData("file", recordFile!!.name, requestFile)
-
                 callGradeProblem(token, record, currentIndex, sentence!![i])
             } else {
                 Log.e("recordFile", "Error record file is null")
@@ -309,6 +314,7 @@ class TestActivity : AppCompatActivity() {
 //                    val msg = response.body()?.message
                     bindViews()
                 }else{
+                    toastMsg(response.toString())
                     Log.d("Get Test Problems : Code 400 Error", response.toString())
                 }
             }
@@ -338,11 +344,23 @@ class TestActivity : AppCompatActivity() {
                     when(result){
                         1 -> {
                             // "GREAT !!"
+                            if (wrong?.contains(currentIndex)!!){
+                                wrong!!.remove(currentIndex)
+                            }
+                            if (problem?.contains(currentIndex)!!){
+                                problem!!.remove(currentIndex)
+                            }
                             correct?.add(currentIndex)
                             gradeDialog("GREAT ^^")
                         }
                         2 -> {
                             // "GOOD :)"
+                            if (wrong?.contains(currentIndex)!!){
+                                wrong!!.remove(currentIndex)
+                            }
+                            if (problem?.contains(currentIndex)!!){
+                                problem!!.remove(currentIndex)
+                            }
                             correct?.add(currentIndex)
                             gradeDialog("GOOD :)")
                         }
@@ -354,6 +372,7 @@ class TestActivity : AppCompatActivity() {
                         }
                     }
                 } else{
+                    toastMsg(response.toString())
                     Log.d("GradeProblem : Code 400 Error", response.toString())
                 }
             }

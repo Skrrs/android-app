@@ -98,17 +98,18 @@ class ResultActivity : AppCompatActivity(){
                 btn.background = this.resources.getDrawable(R.drawable.btn_add_deactivate)
             }
             btn.setOnClickListener {
-                btnActivation = !btnActivation
                 if (btnActivation) {
-                    btn.background = this.resources.getDrawable(R.drawable.btn_add_activate)
-                    if (!problem?.contains(currentIndex)!!){
-                        problem!!.add(currentIndex)
-                    }
-                }
-                if (!btnActivation) {
+                    btnActivation = false
                     btn.background = this.resources.getDrawable(R.drawable.btn_add_deactivate)
                     if (problem?.contains(currentIndex)!!) {
                         problem!!.remove(currentIndex)
+                    }
+                }
+                else {
+                    btnActivation = true
+                    btn.background = this.resources.getDrawable(R.drawable.btn_add_activate)
+                    if (!problem?.contains(currentIndex)!!){
+                        problem!!.add(currentIndex)
                     }
                 }
             }
@@ -131,6 +132,7 @@ class ResultActivity : AppCompatActivity(){
                     val msg = response.body()?.message
                     mainPageMove()
                 }else{
+                    toastMsg(response.toString())
                     Log.d("Result Add Favorite : Code 400 Error", response.toString())
                 }
             }
