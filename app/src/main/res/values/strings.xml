@@ -9,6 +9,16 @@
     <string name="btn_logout">Logout</string>
 
     <string name="example_myLibrary">안녕하세요, 저는 허승회 입니다.</string>
+    <string name="example_1">1. 지금 몇 시예요?</string>
+    <string name="example_2">2. 세시 삼십 분이에요.</string>
+    <string name="example_3">3. 벌써 그렇게 됐어요?</string>
+    <string name="example_4">4. 서둘러야겠어요.</string>
+    <string name="example_5">5. 왜 그러세요?</string>
+    <string name="example_6">6. 네시에 친구와 약속이 있어요.</string>
+    <string name="example_7">7. 어디서 만나기로 하셨는데요?</string>
+    <string name="example_8">8. 여의도 케이비에스 본관 앞에서 만나기로 했어요.</string>
+    <string name="example_9">9. 지금 출발하면 늦지 않으실 거예요.</string>
+    <string name="example_10">10. 먼저 가서 미안해요. 그럼 내일 또 만나요.</string>
     <string name="example_user_name">허승회</string>
     <string name="example_user_email">hsh98@gmail.com</string>
 
@@ -27,4 +37,5 @@
     <string name="facebook_client_token">56789</string>
     <string name="SignUp">회원가입</string>
     <string name="Login">로그인</string>
+    <string name="sentence_of_the_day">Sentence of the day</string>
 </resources>

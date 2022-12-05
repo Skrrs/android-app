@@ -8,6 +8,11 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
+    <color name="beginner">#ADE76B</color>
+    <color name="intermediate">#03A9F4</color>
+    <color name="advanced">#F73476</color>
+    <color name="dark_grey">#343434</color>
+
     <!--  User Define  -->
     <color name="background_color">#FFF8F8F8</color>
 </resources>

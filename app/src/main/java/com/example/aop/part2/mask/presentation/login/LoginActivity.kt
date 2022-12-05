@@ -3,17 +3,27 @@ package com.example.aop.part2.mask.presentation.login
 //import androidx.appcompat.widget.AppCompatButton
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.addTextChangedListener
 import com.example.aop.part2.mask.R
+import com.example.aop.part2.mask.domain.dto.LoginDto
+import com.example.aop.part2.mask.domain.request.API
+import com.example.aop.part2.mask.domain.response.CommonResponse
+import com.example.aop.part2.mask.domain.response.result.LoginResult
+import com.example.aop.part2.mask.presentation.main.MainActivity
+import com.example.aop.part2.mask.presentation.mypage.MypageActivity
 import com.example.aop.part2.mask.presentation.signup.SignupActivity
+import com.example.aop.part2.mask.utils.api.RetrofitClass
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
+import retrofit2.Call
+import retrofit2.Response
+import retrofit2.Retrofit
 
 //import com.facebook.AccessToken
 //import com.facebook.CallbackManager
@@ -25,23 +35,23 @@ import com.google.firebase.ktx.Firebase
 //import com.google.android.gms.auth.api.signin.GoogleSignInClient
 
 class LoginActivity : AppCompatActivity() {
-    private lateinit var auth: FirebaseAuth
-//    private lateinit var callbackManager: CallbackManager
+    // DB
+    private val auth: FirebaseAuth = FirebaseAuth.getInstance()
+    private val database = Firebase.database
+    private var token:String = ""
+//    private lateinit var userDB: DatabaseReference
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
-        auth = Firebase.auth
 
         initLoginButton()
-
         val signUpButton = findViewById<Button>(R.id.signUpButton)
         signUpButton.setOnClickListener {
             val intent = Intent(this, SignupActivity::class.java) //
             startActivity(intent)
             finish()
         }
-
         initEmailAndPasswordEditText()
     }
 
@@ -73,15 +83,6 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
-//    private fun initSignUpButton(){
-//        val signUpButton = findViewById<Button>(R.id.signUpButton)
-//        signUpButton.setOnClickListener {
-//            val intent = Intent(this, SignupActivity::class.java)
-//            startActivity(intent)
-////            finish()
-//        }
-//    }
-
     private fun getInputEmail(): String {
         return findViewById<EditText>(R.id.emailEditText).text.toString()
     }
@@ -112,34 +113,52 @@ class LoginActivity : AppCompatActivity() {
             Toast.makeText(this, "로그인에 실패했습니다. 다시 시도해주세요.", Toast.LENGTH_SHORT).show()
             return
         }
-        val uid: String = auth.currentUser?.uid.orEmpty()
-        val email: String = auth.currentUser?.email.orEmpty()
-        val currentUserDb = Firebase.database.reference.child("Users").child(email)
-        val user = mutableMapOf<String, Any>()
-        user["email"] = email
-        currentUserDb.updateChildren(user)
+        else {
+            Toast.makeText(this, "환영합니다.", Toast.LENGTH_SHORT).show()
+        }
 
+        // TODO - Login API request
+        val email: String = auth.currentUser?.email.orEmpty()
+
+        callLogin(email)
+        val intent = Intent(this, MainActivity::class.java) //
+        startActivity(intent)
         finish()
     }
 
+    // Retrofit (API)
+    private var rtf : Retrofit? = null
+//    private var tkList : List<token>? = null
+    private fun callLogin(email: String) {
+        val loginDto = LoginDto(email)
 
-//    ######## About Facebook #########
-//    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-//        super.onActivityResult(requestCode, resultCode, data)
-//
-//        // Pass the activity result back to the Facebook SDK
-////        callbackManager.onActivityResult(requestCode, resultCode, data)
-//    }
-//
-//    private fun handleFacebookAccessToken(token: AccessToken) {
-//        val credential = FacebookAuthProvider.getCredential(token.token)
-//        auth.signInWithCredential(credential)
-//            .addOnCompleteListener(this) { task ->
-//                if (task.isSuccessful) {
-//                    successLogin()
-//                } else {
-//                    Toast.makeText(this, "페이스북 로그인에 실패했습니다. 다시 시도해주세요.", Toast.LENGTH_SHORT).show()
-//                }
-//            }
-//    }
+        rtf = RetrofitClass().getRetrofitInstance()
+        val api = rtf?.create(API::class.java)
+        val callAPI = api?.requestLogin(loginDto = loginDto)
+
+        callAPI?.enqueue(object : retrofit2.Callback<CommonResponse<LoginResult>> {
+            override fun onResponse(call: Call<CommonResponse<LoginResult>>, response: Response<CommonResponse<LoginResult>>) {
+                if (response.isSuccessful) {
+                    Log.d("login Success", response.code().toString())
+                    token = response.body()?.result?.token ?: String()
+                    Log.d("MessageToken : ",token)
+                    val tokenReference = database.getReference("token")
+                    tokenReference.setValue(token)
+                } else{
+                    Log.d("login : Code 400 Error", response.toString())
+                }
+            }
+            override fun onFailure(call: Call<CommonResponse<LoginResult>>, t: Throwable) {
+                Log.d("Login : Code 500 Error", t.toString())
+            }
+        })
+    }
+
+    private fun getCurrentUserID(): String {
+        if (auth.currentUser == null) {
+            Toast.makeText(this, "로그인이 되어있지않습니다.", Toast.LENGTH_SHORT).show()
+            finish()
+        }
+        return auth.currentUser?.uid.orEmpty()
+    }
 }

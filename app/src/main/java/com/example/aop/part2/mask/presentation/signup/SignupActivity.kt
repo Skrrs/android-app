@@ -10,16 +10,15 @@ import androidx.core.widget.addTextChangedListener
 import com.example.aop.part2.mask.R
 import com.example.aop.part2.mask.presentation.login.LoginActivity
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.ktx.Firebase
+import com.google.firebase.database.FirebaseDatabase
 
 class SignupActivity: AppCompatActivity()  {
-    private lateinit var auth: FirebaseAuth
+    private val auth: FirebaseAuth = FirebaseAuth.getInstance()
+    private val database = FirebaseDatabase.getInstance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_signup)
-        auth = Firebase.auth
 
         val loginButton = findViewById<Button>(R.id.loginButton)
         loginButton.setOnClickListener {
@@ -42,9 +41,14 @@ class SignupActivity: AppCompatActivity()  {
                 "회원가입 중입니다... 잠시만 기다려 주세요 :)",
                 Toast.LENGTH_SHORT
             ).show()
+
             auth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this) { task ->
                     if (task.isSuccessful) {
+                        // Firebase authentication에 user 추가
+                        val emailReference = database.getReference("email")
+                        emailReference.setValue(email)
+
                         Toast.makeText(
                             this,
                             "회원가입을 성공했습니다! 로그인 버튼을 눌러 로그인해주세요 :)",
