@@ -1,7 +1,7 @@
 plugins {
     id 'com.android.application'
+    id 'com.google.gms.google-services'
     id 'org.jetbrains.kotlin.android'
-//    id 'com.google.gms.google-services'
     id 'kotlin-kapt'
 }
 
@@ -35,6 +35,9 @@ android {
     dataBinding{
         enabled = true
     }
+    viewBinding{
+        enabled = true
+    }
 }
 
 dependencies {
@@ -52,17 +55,23 @@ dependencies {
     implementation 'com.squareup.retrofit2:converter-gson:2.6.0'
 
     // Firebase
-    implementation 'com.google.firebase:firebase-auth-ktx:21.0.4'
+    implementation 'com.google.firebase:firebase-auth-ktx'
+    implementation 'com.google.firebase:firebase-database-ktx'
+//    implementation 'com.google.firebase:firebase-analytics-ktx'
     implementation 'com.google.android.gms:play-services-auth:20.2.0'
-    implementation 'com.google.firebase:firebase-analytics-ktx'
     implementation 'com.google.firebase:firebase-core:17.2.3'
-    implementation platform('com.google.firebase:firebase-bom:30.0.1')
     implementation 'com.google.firebase:firebase-messaging-ktx:23.0.5'
+    implementation platform('com.google.firebase:firebase-bom:31.0.3')
+
+    // Facebook
+//    implementation 'com.facebook.android:facebook-login'
+
     // Image
     implementation 'com.squareup.picasso:picasso:2.71828'
     implementation 'com.github.bumptech.glide:glide:4.11.0'
     implementation 'de.hdodenhof:circleimageview:3.1.0'
-    annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
+    implementation 'com.github.bumptech.glide:glide:4.14.2'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.14.2'
 
     // Room
     implementation 'androidx.room:room-runtime:2.3.0'
@@ -76,5 +85,5 @@ dependencies {
     //Chart
     implementation 'com.github.blackfizz:eazegraph:1.2.2@aar'
     implementation 'com.nineoldandroids:library:2.4.0'
-//    implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
+    implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
 }

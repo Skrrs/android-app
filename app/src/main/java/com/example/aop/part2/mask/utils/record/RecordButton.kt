@@ -26,6 +26,9 @@ class RecordButton(
             State.ON_PLAYING -> {
                 setImageResource(R.drawable.ic_baseline_stop_circle_24)
             }
+            State.AFTER_PLAYING -> {
+                setImageResource(R.drawable.ic_baseline_play_circle_24)
+            }
         }
     }
 }
