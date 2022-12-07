@@ -21,7 +21,8 @@
             android:id="@+id/header_user"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:layout_marginStart="16dp"
+            android:layout_marginStart="25dp"
+            android:paddingStart="10dp"
             android:background="@drawable/border_user"
             android:layout_gravity="start|center_vertical" />
 
@@ -40,7 +41,8 @@
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_gravity="end|center_vertical"
-            android:layout_marginEnd="16dp"
+            android:layout_marginEnd="25dp"
+            android:paddingEnd="10dp"
             android:background="@drawable/border_library" />
     </LinearLayout>
     <!--    Body -->
